@@ -32,4 +32,11 @@ angular.module('starter.controllers', [])
   $scope.remove = function(course) {
     Courses.remove(course);
   }
+})
+
+.controller('EventsCtrl', function($scope, Events) {
+  $scope.events = Events.all();
+  $scope.remove = function(_event) {
+    Events.remove(_event);
+  }
 });

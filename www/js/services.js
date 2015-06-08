@@ -76,4 +76,37 @@ angular.module('starter.services', [])
       return null;
     }
   };
+})
+
+.factory('Events', function() {
+  var events = [{
+    id: 1,
+    name: "P1",
+    info: "Primeira prova",
+    course: "Programação I",
+    starts: "10/08/2015"
+  }, {
+    id: 2,
+    name: "P2",
+    info: "Segunda prova",
+    course: "Programação I",
+    starts: "10/10/2015"
+  }];
+
+  return {
+    all: function() {
+      return events;
+    },
+    remove: function(_event) {
+      events.splice(events.indexOf(_event), 1);
+    },
+    get: function(eventId) {
+      for (var i = 0; i < events.length; i++) {
+        if (events[i].id === parseInt(eventId)) {
+          return events[i];
+        }
+      }
+      return null;
+    }
+  };
 });

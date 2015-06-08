@@ -1,0 +1,11 @@
+<ion-view view-title="Eventos">
+  <ion-content>
+    <ion-list>
+      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="_event in events" type="item-text-wrap">
+        <h2>{{_event.starts}}</h2>
+        <p>{{_event.name}} - {{_event.info}} - {{_event.course}}</p>
+        <i class="icon ion-chevron-right icon-accessory"></i>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>
