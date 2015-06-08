@@ -1,0 +1,11 @@
+<ion-view view-title="Disciplinas">
+  <ion-content>
+    <ion-list>
+      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="course in courses" type="item-text-wrap" href="#/tab/courses/{{course.id}}">
+        <h2>{{course.name}}</h2>
+        <p>{{course.info}}</p>
+        <i class="icon ion-chevron-right icon-accessory"></i>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>
