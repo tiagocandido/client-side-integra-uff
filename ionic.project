@@ -1,4 +1,10 @@
 {
   "name": "integraUff",
-  "app_id": ""
+  "app_id": "",
+  "proxies": [
+      {
+        "path": "/api/login",
+        "proxyUrl": "http://localhost:3000/conexao_uff/authentication/login"
+      }
+    ]
 }

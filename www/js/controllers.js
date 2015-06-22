@@ -1,4 +1,4 @@
-angular.module('starter.controllers', [])
+angular.module('integraUff.controllers', [])
 
 .controller('DashCtrl', function($scope) {})
 
@@ -31,5 +31,16 @@ angular.module('starter.controllers', [])
   $scope.courses = Courses.all();
   $scope.remove = function(course) {
     Courses.remove(course);
+  }
+})
+
+.controller('SyncCtrl', function($scope) {
+
+})
+
+.controller('LoginCtrl', function($scope, Autentication) {
+  $scope.credentials = {};
+  $scope.login = function(){
+    Autentication.login($scope.credentials);
   }
 });
