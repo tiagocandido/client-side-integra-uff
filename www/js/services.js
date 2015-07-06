@@ -1,4 +1,4 @@
-angular.module('starter.services', [])
+angular.module('integraUff.services', ['integraUff.config'])
 
 .factory('Chats', function() {
   // Might use a resource here that returns a JSON array
@@ -49,7 +49,7 @@ angular.module('starter.services', [])
   };
 })
 
-.factory('Courses', function() {
+.factory('Courses', function($http) {
   var courses = [{
     id: 1,
     name: "Programação I",
@@ -74,39 +74,131 @@ angular.module('starter.services', [])
         }
       }
       return null;
+    },
+    fetch: function(){
+      $http
+        .get('http://localhost:8100/api/conexao_uff/courses')
+        .then(function(response){
+          courses = response.data;
+        });
     }
   };
 })
 
-.factory('Events', function() {
-  var events = [{
-    id: 1,
-    name: "P1",
-    info: "Primeira prova",
-    course: "Programação I",
-    starts: "10/08/2015"
-  }, {
-    id: 2,
-    name: "P2",
-    info: "Segunda prova",
-    course: "Programação I",
-    starts: "10/10/2015"
-  }];
+.factory('DB', function($q, DB_CONFIG) {
+    var self = this;
+    self.db = null;
 
-  return {
-    all: function() {
-      return events;
-    },
-    remove: function(_event) {
-      events.splice(events.indexOf(_event), 1);
-    },
-    get: function(eventId) {
-      for (var i = 0; i < events.length; i++) {
-        if (events[i].id === parseInt(eventId)) {
-          return events[i];
+    self.init = function() {
+        // Use self.db = window.sqlitePlugin.openDatabase({name: DB_CONFIG.name}); in production
+        self.db = window.openDatabase(DB_CONFIG.name, '1.0', 'database', -1);
+
+        angular.forEach(DB_CONFIG.tables, function(table) {
+            var columns = [];
+
+            angular.forEach(table.columns, function(column) {
+                columns.push(column.name + ' ' + column.type);
+            });
+
+            var query = 'CREATE TABLE IF NOT EXISTS ' + table.name + ' (' + columns.join(',') + ')';
+            self.query(query);
+            console.log('Table ' + table.name + ' initialized');
+        });
+    };
+
+    self.query = function(query, bindings) {
+        bindings = typeof bindings !== 'undefined' ? bindings : [];
+        var deferred = $q.defer();
+
+        self.db.transaction(function(transaction) {
+            transaction.executeSql(query, bindings, function(transaction, result) {
+                deferred.resolve(result);
+            }, function(transaction, error) {
+                deferred.reject(error);
+            });
+        });
+
+        return deferred.promise;
+    };
+
+    self.fetchAll = function(result) {
+        var output = [];
+
+        for (var i = 0; i < result.rows.length; i++) {
+            output.push(result.rows.item(i));
         }
-      }
-      return null;
+
+        return output;
+    };
+
+    self.fetch = function(result) {
+        return result.rows.item(0);
+    };
+
+    return self;
+})
+
+.factory('Accounts', function(DB) {
+    var self = this;
+
+    self.all = function() {
+        return DB.query('SELECT * FROM accounts')
+            .then(function(result){
+                return DB.fetchAll(result);
+            });
+    };
+
+    self.getById = function(id) {
+        return DB.query('SELECT * FROM accounts WHERE id = ?', [id])
+            .then(function(result){
+                return DB.fetch(result);
+            });
+    };
+
+    self.create = function(system, login, password){
+      return true;//DB.query('INSERT INTO accounts(system, login, password) VALUES(?, ?, ?);',[system, login, password])
+    };
+
+    return self;
+})
+
+.factory('Autentication', function($http, Accounts){
+//  const autenticationPath = 'http://localhost:3000/conexao_uff/authentication/login';
+  const autenticationPath = 'http://localhost:8100/api/conexao_uff/login';
+  self = {
+    login: function(credentials){
+      return $http
+          .post(autenticationPath, credentials)
+          .then(function(response){
+            window.sessionStorage['token_iduff'] = response.data.token;
+            Accounts.create('conexao_uff', credentials.login, credentials.password);
+          })
     }
   };
+  return self;
+})
+
+.factory('Sync', function($http, Accounts, Courses){
+  self = {
+    run: function(){
+      Courses.fetch();
+    }
+  };
+  return self;
+})
+
+.factory('ConexaoUffInterceptor', function(){
+    const UNAUTHORIZED = 401;
+    return {
+        request : function(config){
+            if(config.url.indexOf('api/conexao_uff/courses')!= -1){
+              config.headers = config.headers || {};
+              var token = window.sessionStorage['token_iduff'];
+              if (token) {
+                config.headers.AUTHORIZATION = 'Token '+ 'token='+ token;
+              }
+            };
+            return config;
+        }
+    }
 });

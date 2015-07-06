@@ -1,4 +1,4 @@
-angular.module('starter.controllers', [])
+angular.module('integraUff.controllers', [])
 
 .controller('DashCtrl', function($scope) {})
 
@@ -38,5 +38,20 @@ angular.module('starter.controllers', [])
   $scope.events = Events.all();
   $scope.remove = function(_event) {
     Events.remove(_event);
+  }
+})
+
+.controller('SyncCtrl', function($scope) {
+
+})
+
+.controller('LoginCtrl', function($scope, Autentication, Sync) {
+  $scope.credentials = {};
+  $scope.login = function(){
+    Autentication.login($scope.credentials)
+    .then(function(){
+      $scope.notice = "Sincronizando dados";
+      Sync.run();
+    });
   }
 });

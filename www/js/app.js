@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
+angular.module('integraUff', ['ionic', 'integraUff.controllers', 'integraUff.services'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -20,8 +20,13 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     }
   });
 })
+.run(function(DB){
+    DB.init();
+})
 
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
+
+  $httpProvider.interceptors.push('ConexaoUffInterceptor');
 
   // Ionic uses AngularUI Router which uses the concept of states
   // Learn more here: https://github.com/angular-ui/ui-router
@@ -30,7 +35,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   $stateProvider
 
   // setup an abstract state for the tabs directive
-    .state('tab', {
+  .state('tab', {
     url: "/tab",
     abstract: true,
     templateUrl: "templates/tabs.html"
@@ -52,8 +57,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       url: '/chats',
       views: {
         'tab-chats': {
-          templateUrl: 'templates/events.html',
-          controller: 'EventsCtrl'
+          templateUrl: 'templates/tab-chats.html',
+          controller: 'ChatsCtrl'
         }
       }
     })
@@ -77,10 +82,30 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     }
   })
 
+  .state('tab.sync', {
+          url: '/sync',
+          views: {
+              'tab-account': {
+                  templateUrl: 'templates/tab-sync.html',
+                  controller: 'SyncCtrl'
+              }
+          }
+   })
+
+  .state('tab.login', {
+      url: '/login',
+      views: {
+          'tab-account': {
+              templateUrl: 'templates/tab-login.html',
+              controller: 'LoginCtrl'
+          }
+      }
+  })
+
   .state('tab.courses', {
     url: '/courses',
     views: {
-      'tab-courses': {
+      'tab-dash': {
         templateUrl: 'templates/tab-courses.html',
         controller: 'CoursesCtrl'
       }
@@ -99,5 +124,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/tab/dash');
+
+
 
 });
