@@ -77,9 +77,37 @@ angular.module('integraUff.services', ['integraUff.config'])
     },
     fetch: function(){
       $http
-        .get('http://localhost:8100/api/conexao_uff/courses')
+        .get('/api/conexao_uff/courses')
         .then(function(response){
           courses = response.data;
+        });
+    }
+  };
+})
+
+.factory('Events', function($http) {
+  events = []
+
+  return {
+    all: function() {
+      return events;
+    },
+    remove: function(_event) {
+      events.splice(events.indexOf(_event), 1);
+    },
+    get: function(eventId) {
+      for (var i = 0; i < events.length; i++) {
+        if (events[i].id === parseInt(eventId)) {
+          return events[i];
+        }
+      }
+      return null;
+    },
+    fetch: function(){
+      $http
+        .get('/api/conexao_uff/events')
+        .then(function(response){
+          events = response.data;
         });
     }
   };
@@ -163,8 +191,7 @@ angular.module('integraUff.services', ['integraUff.config'])
 })
 
 .factory('Autentication', function($http, Accounts){
-//  const autenticationPath = 'http://localhost:3000/conexao_uff/authentication/login';
-  const autenticationPath = 'http://localhost:8100/api/conexao_uff/login';
+  const autenticationPath = '/api/conexao_uff/login';
   self = {
     login: function(credentials){
       return $http
@@ -178,10 +205,11 @@ angular.module('integraUff.services', ['integraUff.config'])
   return self;
 })
 
-.factory('Sync', function($http, Accounts, Courses){
+.factory('Sync', function($http, Accounts, Courses, Events){
   self = {
     run: function(){
       Courses.fetch();
+      Events.fetch();
     }
   };
   return self;
@@ -191,7 +219,7 @@ angular.module('integraUff.services', ['integraUff.config'])
     const UNAUTHORIZED = 401;
     return {
         request : function(config){
-            if(config.url.indexOf('api/conexao_uff/courses')!= -1){
+            if(config.url.indexOf('api/conexao_uff/')!= -1){
               config.headers = config.headers || {};
               var token = window.sessionStorage['token_iduff'];
               if (token) {

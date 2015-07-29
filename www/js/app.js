@@ -115,8 +115,8 @@ angular.module('integraUff', ['ionic', 'integraUff.controllers', 'integraUff.ser
   .state('tab.events', {
     url: '/events',
     views: {
-      'tab-events': {
-        templateUrl: 'templates/events.html',
+      'tab-dash': {
+        templateUrl: 'templates/tab-events.html',
         controller: 'EventsCtrl'
       }
     }
