@@ -86,7 +86,7 @@ angular.module('integraUff.services', ['integraUff.config'])
 })
 
 .factory('Events', function($http) {
-  events = []
+  events = [];
 
   return {
     all: function() {
@@ -208,6 +208,7 @@ angular.module('integraUff.services', ['integraUff.config'])
 .factory('Sync', function($http, Accounts, Courses, Events){
   self = {
     run: function(){
+      console.log(Accounts.all);
       Courses.fetch();
       Events.fetch();
     }
@@ -230,4 +231,4 @@ angular.module('integraUff.services', ['integraUff.config'])
             return config;
         }
     }
-});
+})
