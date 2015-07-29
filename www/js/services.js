@@ -195,7 +195,8 @@ angular.module('integraUff.services', ['integraUff.config'])
               config.headers = config.headers || {};
               var token = window.sessionStorage['token_iduff'];
               if (token) {
-                config.headers.AUTHORIZATION = 'Token '+ 'token='+ token;
+                if(!config.params) config.params = {};
+                config.params.token = token;
               }
             };
             return config;
