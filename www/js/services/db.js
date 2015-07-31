@@ -1,6 +1,6 @@
 function DB($webSql, DB_CONFIG){
-  var self = this;
-  var db = null;
+  var self = this,
+      db = null;
 
   self.init = function() {
     // Use self.db = window.sqlitePlugin.openDatabase({name: DB_CONFIG.name}); in production

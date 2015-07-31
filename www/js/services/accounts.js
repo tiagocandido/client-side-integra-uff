@@ -23,7 +23,28 @@ function Accounts($q, DB) {
   };
 
   self.create = function(system, login, password, token){
-    return DB.insert('accounts', { 'system' : system, 'login' : login, 'password' : password, 'token' : token});
+    return self.accountExists(system, login).then(function(exists){
+      if(exists){
+        return DB.update('accounts', {'password' : password, 'token' : token}, { 'system' : {
+          "value" : system,
+          "union" : 'AND'
+        } , 'login' : login} );
+      }
+      else{
+        return DB.insert('accounts', { 'system' : system, 'login' : login, 'password' : password, 'token' : token});
+      }
+    });
+  };
+
+  self.accountExists = function(system, login){
+    var deferred = $q.defer();
+    DB.select('accounts', { 'system' : {
+      "value" : system,
+      "union" : 'AND'
+    } , 'login' : login}).then(function(result){
+      deferred.resolve(!!result.length)
+    });
+    return deferred.promise;
   };
 
   return self;

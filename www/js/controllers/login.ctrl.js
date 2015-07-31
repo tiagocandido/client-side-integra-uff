@@ -9,4 +9,4 @@ function LoginCtrl($scope, $state, Authentication, Sync) {
           });
         });
   }
-};
+}

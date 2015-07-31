@@ -16,6 +16,7 @@ angular.module("angular-websql", []).factory("$webSql", ["$q",
 					return {
 						executeQuery: function(query, values) {
 							var deferred = $q.defer();
+                            console.log(query);
 							db.transaction(function(tx) {
                               tx.executeSql(query, values, function(tx, results) {
 									deferred.resolve(results);
