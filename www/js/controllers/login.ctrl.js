@@ -1,4 +1,4 @@
-function LoginCtrl($scope, $state, $ionicLoading, Authentication, Sync) {
+function LoginCtrl($scope, $state, $ionicLoading, $ionicPopup, Authentication, Sync) {
   $scope.login = function(){
     Authentication.login($scope.credentials)
         .then(function(){
@@ -6,6 +6,11 @@ function LoginCtrl($scope, $state, $ionicLoading, Authentication, Sync) {
           Sync.run().then(function(){
             stopSyncing();
             $state.transitionTo('tab.dash');
+          });
+        }, function(){
+          $ionicPopup.alert({
+            title: 'Autenticação falhou',
+            template: 'Usuário e/ou senha inválido(s)'
           });
         });
   };
@@ -18,5 +23,5 @@ function LoginCtrl($scope, $state, $ionicLoading, Authentication, Sync) {
 
   var stopSyncing = function(){
     $ionicLoading.hide();
-  }
+  };
 }
