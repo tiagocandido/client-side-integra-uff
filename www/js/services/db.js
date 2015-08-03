@@ -18,12 +18,12 @@ function DB($webSql, DB_CONFIG){
   };
   self.select = function(tableName, where){
     return db.select(tableName, where).then(function(result){
-      return result.rows;
+      return resultSetRowListToArray(result.rows);
     })
   };
   self.selectAll = function(tableName){
     return db.selectAll(tableName).then(function(result){
-      return result.rows;
+      return resultSetRowListToArray(result.rows);
     })
   };
   self.update = function(tableName, fields, where){
@@ -31,6 +31,14 @@ function DB($webSql, DB_CONFIG){
   };
   self.delete = function(tableName, where){
     return db.selectAll(tableName, where)
+  };
+
+  var resultSetRowListToArray = function(resultSetRowList){
+    var array = [];
+    angular.forEach(resultSetRowList,function(item){
+      array.push(item);
+    });
+    return array
   };
 
   return self;

@@ -6,17 +6,35 @@ angular.module('integraUff.config', [])
           name : 'accounts',
           columns: {
             'system' : {
-              'type' : 'text',
+              'type' : 'TEXT',
               'primary' : true
             },
             'login' : {
-              'type': 'text'
+              'type': 'TEXT'
             },
             'password' : {
-              'type': 'text'
+              'type': 'TEXT'
             },
             'token' : {
-              'type': 'text'
+              'type': 'TEXT'
+            }
+          }
+        },
+        {
+          name : 'courses',
+          columns: {
+            'system' : {
+              'type' : 'TEXT'
+            },
+            'system_id' : {
+              'type' : 'INTEGER',
+              'primary' : true
+            },
+            'name' : {
+              'type' : 'TEXT'
+            },
+            'info': {
+              'type' : 'TEXT'
             }
           }
         }

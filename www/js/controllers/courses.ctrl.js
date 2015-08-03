@@ -1,6 +1,9 @@
 function CoursesCtrl($scope, Courses) {
-  $scope.courses = Courses.all();
+  Courses.all().then(function(courses){
+    $scope.courses = courses
+  });
+
   $scope.remove = function(course) {
     Courses.remove(course);
   }
-};
+}

@@ -1,17 +1,7 @@
-function Courses($http) {
-  var courses = [{
-    id: 1,
-    name: "Programação I",
-    info: "Básico de programação."
-  }, {
-    id: 2,
-    name: "Cálculo I",
-    info: "informação de calculo I"
-  }];
-
-  return {
+function Courses($http, DB) {
+  var self =  {
     all: function() {
-      return courses;
+      return DB.selectAll('courses');
     },
     remove: function(course) {
       courses.splice(courses.indexOf(course), 1);
@@ -24,15 +14,20 @@ function Courses($http) {
       }
       return null;
     },
-    create: function(){
-
+    create: function(system, system_id, name, info){
+      return DB.insert('courses', {'system' : system, 'system_id' : system_id, 'name' : name, 'info' : info}, true)
     },
     fetch: function(){
       return $http
           .get('/api/conexao_uff/courses')
           .then(function(response){
-            courses = response.data;
+            var courses = response.data;
+            angular.forEach(courses, function(course){
+              self.create(course.system, course.system_id, course.name, course.info)
+            })
           });
     }
   };
+
+  return self;
 }
