@@ -2,8 +2,8 @@
   <ion-content>
     <ion-list>
       <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="_event in events" type="item-text-wrap">
-        <h2>{{_event.starts}}</h2>
-        <p>{{_event.name}} - {{_event.course_id}} - {{_event.info}}</p>
+        <h2>{{_event.starts | date: 'dd/MM/yyyy - HH:mm'}}</h2>
+        <p>{{_event.name}}</p>
         <i class="icon ion-chevron-right icon-accessory"></i>
       </ion-item>
     </ion-list>

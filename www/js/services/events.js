@@ -1,30 +1,28 @@
-function Events($http) {
-  events = [];
-
-  return {
+function Events($http, DB) {
+  var self = {
     all: function() {
-      return events;
+      return DB.selectAll('events');
     },
     remove: function(_event) {
-      events.splice(events.indexOf(_event), 1);
+
     },
     get: function(eventId) {
-      for (var i = 0; i < events.length; i++) {
-        if (events[i].id === parseInt(eventId)) {
-          return events[i];
-        }
-      }
-      return null;
-    },
-    create: function(){
 
+    },
+    create: function(event_attributes){
+      return DB.insert('events', event_attributes, true)
     },
     fetch: function(){
       return $http
           .get('/api/conexao_uff/events')
           .then(function(response){
-            events = response.data;
+            var events = response.data;
+            angular.forEach(events, function(event){
+              self.create(event)
+            })
           });
     }
   };
+
+  return self;
 }
