@@ -3,8 +3,12 @@
   "app_id": "",
   "proxies": [
       {
-        "path": "/api/conexao_uff/login",
+        "path": "/api/conexao_uff/authentication/login",
         "proxyUrl": "http://localhost:3000/conexao_uff/authentication/login"
+      },
+      {
+        "path": "/api/conexao_uff/authentication/validation",
+        "proxyUrl": "http://localhost:3000/conexao_uff/authentication/validation"
       },
       {
         "path": "/api/conexao_uff/courses",

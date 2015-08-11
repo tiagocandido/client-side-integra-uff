@@ -23,12 +23,15 @@ angular.module('integraUff.config', [])
         {
           name : 'courses',
           columns: {
+            'id' : {
+              'type' : 'TEXT',
+              'primary' : true
+            },
             'system' : {
               'type' : 'TEXT'
             },
             'system_id' : {
-              'type' : 'TEXT',
-              'primary' : true
+              'type' : 'TEXT'
             },
             'name' : {
               'type' : 'TEXT'
@@ -41,12 +44,15 @@ angular.module('integraUff.config', [])
         {
           name : 'events',
           columns : {
+            'id' : {
+              'type' : 'TEXT',
+              'primary' : true
+            },
             'system' : {
               'type' : 'TEXT'
             },
             'system_id' : {
-              'type' : 'TEXT',
-              'primary' : true
+              'type' : 'TEXT'
             },
             'starts' : {
               'type' : 'TEXT'

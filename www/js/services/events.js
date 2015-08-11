@@ -13,6 +13,7 @@ function Events($http, DB) {
       return DB.insert('events', event_attributes, true)
     },
     fetch: function(){
+      //TODO: iterate through accounts making the requests
       return $http
           .get('/api/conexao_uff/events')
           .then(function(response){

@@ -1,19 +1,14 @@
-function Accounts($q, DB) {
+function Accounts(DB) {
   var self = this;
 
   self.hasAccount = function(){
-    var deferred = $q.defer();
-    self.all().then(function(result){
-      deferred.resolve(!!result.length);
+    return self.all().then(function(result){
+      return !!result.length
     });
-    return deferred.promise;
   };
 
   self.all = function() {
     return DB.selectAll('accounts')
-        .then(function(result){
-          return result;
-        });
   };
 
   self.getToken = function(system) {
@@ -24,6 +19,17 @@ function Accounts($q, DB) {
 
   self.create = function(system, login, password, token){
     return DB.insert('accounts', { 'system' : system, 'login' : login, 'password' : password, 'token' : token}, true);
+  };
+
+  self.getCredentials = function(system){
+    return DB.select('accounts', {'system' : system }).then(function(result){
+      var credentials = {}, account;
+      if(result.length){
+        account = result[0];
+        credentials =  { login : account.login, password: account.password }
+      }
+      return credentials
+    })
   };
 
   return self;

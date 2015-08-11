@@ -20,8 +20,18 @@ angular.module('integraUff', ['ionic', 'angular-websql', 'integraUff.controllers
         }
       });
     })
-    .run(function(DB){
-      DB.init();
+    .run(function(DB, Sync, $state, $interval){
+      var sync = function(){
+        Sync.hasSyncedAccount().then(function(hasAccount){
+          if(hasAccount) Sync.run(); else $state.transitionTo('tab.sync');
+        })
+      };
+
+      DB.init().then(function(){
+       sync();
+      });
+
+      $interval(sync, 1000 * 60 * 60);
     })
 
     .config(function($stateProvider, $urlRouterProvider, $httpProvider) {

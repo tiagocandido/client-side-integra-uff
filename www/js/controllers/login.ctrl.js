@@ -1,7 +1,7 @@
 function LoginCtrl($scope, $state, $ionicLoading, $ionicPopup, Authentication, Sync) {
   $scope.credentials = {};
   $scope.login = function(){
-    Authentication.login($scope.credentials)
+    Authentication.login('conexao_uff', $scope.credentials)
         .then(function(){
           startSyncing();
           Sync.run().then(function(){

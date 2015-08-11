@@ -1,17 +1,25 @@
-function Authentication($http, $q, Accounts){
-  const autenticationPath = '/api/conexao_uff/login';
-  var self = {
-    login: function(credentials){
+function Authentication($http, Accounts){
+  return  {
+    login: function(system, credentials){
+      var loginPath = 'api/' + system + '/authentication/login';
       return $http
-          .post(autenticationPath, credentials)
+          .post(loginPath, credentials)
           .then(function(response){
-            var deferred = $q.defer();
-            Accounts.create('conexao_uff', credentials.login, credentials.password, response.data.token).then(function(result){
-              deferred.resolve(result);
-            });
-            return deferred.promise;
+            return Accounts.create('conexao_uff', credentials.login, credentials.password, response.data.json.token)
           })
+    },
+    isTokenValid : function(system){
+      var tokenValidationPath = 'api/' + system + '/authentication/validation';
+      return Accounts.getToken(system).then(function(token){
+        return $http({
+          url: tokenValidationPath,
+          method: "GET",
+          params: { token: token }
+        })
+        .then(function(response){
+          return response.data.valid;
+        });
+      })
     }
   };
-  return self;
 }

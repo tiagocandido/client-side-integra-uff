@@ -12,6 +12,7 @@ function Courses($http, DB) {
       return DB.insert('courses', course_attributes, true)
     },
     fetch: function(){
+      //TODO: iterate through accounts making the requests
       return $http
           .get('/api/conexao_uff/courses')
           .then(function(response){
