@@ -5,7 +5,7 @@ function Authentication($http, Accounts){
       return $http
           .post(loginPath, credentials)
           .then(function(response){
-            return Accounts.create('conexao_uff', credentials.login, credentials.password, response.data.json.token)
+            return Accounts.create('conexao_uff', credentials.login, credentials.password, response.data.token)
           })
     },
     isTokenValid : function(system){
