@@ -1,5 +1,5 @@
-function AccountCtrl($scope) {
+function SettingsCtrl($scope) {
   $scope.settings = {
     enableFriends: true
   };
-};
+}

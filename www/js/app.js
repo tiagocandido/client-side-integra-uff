@@ -82,22 +82,22 @@ angular.module('integraUff', ['ionic', 'angular-websql', 'integraUff.controllers
             }
           })
 
-          .state('tab.account', {
-            url: '/account',
+          .state('tab.settings', {
+            url: '/settings',
             views: {
-              'tab-account': {
-                templateUrl: 'templates/tab-account.html',
-                controller: 'AccountCtrl'
+              'tab-settings': {
+                templateUrl: 'templates/tab-settings.html',
+                controller: 'SettingsCtrl'
               }
             }
           })
 
-          .state('tab.sync', {
-            url: '/sync',
+          .state('tab.accounts', {
+            url: '/accounts',
             views: {
-              'tab-account': {
-                templateUrl: 'templates/tab-sync.html',
-                controller: 'SyncCtrl'
+              'tab-settings': {
+                templateUrl: 'templates/tab-accounts.html',
+                controller: 'AccountsCtrl'
               }
             }
           })
@@ -105,7 +105,7 @@ angular.module('integraUff', ['ionic', 'angular-websql', 'integraUff.controllers
           .state('tab.login', {
             url: '/login',
             views: {
-              'tab-account': {
+              'tab-settings': {
                 templateUrl: 'templates/tab-login.html',
                 controller: 'LoginCtrl'
               }

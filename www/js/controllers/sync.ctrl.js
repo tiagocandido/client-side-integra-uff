@@ -1,3 +1,0 @@
-function SyncCtrl($scope) {
-
-}

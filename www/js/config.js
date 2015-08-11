@@ -70,6 +70,18 @@ angular.module('integraUff.config', [])
               'type' : 'TEXT'
             }
           }
+        },
+        {
+          name : 'settings',
+          columns : {
+            'name' : {
+              'type' : 'TEXT',
+              'primary' : true
+            },
+            'value' : {
+              'type' : 'TEXT'
+            }
+          }
         }
       ]
     });

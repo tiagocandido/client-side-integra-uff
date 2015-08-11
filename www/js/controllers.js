@@ -1,9 +1,9 @@
 angular.module('integraUff.controllers', [])
-    .controller('AccountCtrl', AccountCtrl)
+    .controller('SettingsCtrl', SettingsCtrl)
     .controller('ChatDetailCtrl', ChatDetailCtrl)
     .controller('ChatsCtrl', ChatsCtrl)
     .controller('CoursesCtrl', CoursesCtrl)
     .controller('DashCtrl', DashCtrl)
     .controller('EventsCtrl', EventsCtrl)
     .controller('LoginCtrl', LoginCtrl)
-    .controller('SyncCtrl', SyncCtrl);
+    .controller('AccountsCtrl', AccountsCtrl);
