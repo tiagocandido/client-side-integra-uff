@@ -6,4 +6,5 @@ angular.module('integraUff.controllers', [])
     .controller('DashCtrl', DashCtrl)
     .controller('EventsCtrl', EventsCtrl)
     .controller('LoginCtrl', LoginCtrl)
-    .controller('AccountsCtrl', AccountsCtrl);
+    .controller('AccountsCtrl', AccountsCtrl)
+    .controller('CourseDetailsCtrl', CourseDetailsCtrl);

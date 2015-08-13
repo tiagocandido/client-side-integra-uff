@@ -6,7 +6,10 @@ function Courses($http, DB) {
     remove: function(course) {
     },
     get: function(courseId) {
-
+      return DB.select('courses', {'id':courseId})
+      .then(function(result){
+        return result.pop();
+      });
     },
     create: function(course_attributes){
       return DB.insert('courses', course_attributes, true)

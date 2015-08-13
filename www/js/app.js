@@ -121,6 +121,15 @@ angular.module('integraUff', ['ionic', 'angular-websql', 'integraUff.controllers
               }
             }
           })
+          .state('tab.course-detail', {
+            url: '/courses/:courseId',
+            views: {
+              'tab-dash': {
+                templateUrl: 'templates/course-detail.html',
+                controller: 'CourseDetailsCtrl'
+              }
+            }
+          })
 
           .state('tab.events', {
             url: '/events',
