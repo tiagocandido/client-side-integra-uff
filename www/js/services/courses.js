@@ -24,6 +24,18 @@ function Courses($http, DB) {
               self.create(course)
             })
           });
+    },
+    fetch_events: function(courseId) {
+      var time_now = new Date().toISOString();
+      return DB.select('events',
+        {'ends': {
+          'operator': '>=',
+          'value': time_now,
+          'union': 'AND'
+        }, 'course_id':courseId})
+        .then(function(result){
+          return result;
+        });
     }
   };
 

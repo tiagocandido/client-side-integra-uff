@@ -2,6 +2,17 @@
   <ion-content class="padding has-header">
     <h4 class="title">{{course.name}}</h4>
     <p>{{course.info}}</p>
-
+    <div class="list card">
+      <div class="item item-divider">
+       Próximos Eventos
+      </div>
+      <a href="#" ng-repeat="event in events" class="item">
+        {{event.name}}
+        <p>{{event.starts | date: 'dd/MM/yyyy - HH:mm'}} até {{event.ends | date: 'dd/MM/yyyy - HH:mm'}}</p>
+      </a>
+      <p class="item" ng-if="!events.length">
+        Nenhum evento para esta disciplina.
+      </p>
+    </div>
   </ion-content>
 </ion-view>
