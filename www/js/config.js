@@ -82,6 +82,36 @@ angular.module('integraUff.config', [])
               'type' : 'TEXT'
             }
           }
+        },
+        {
+          name : 'topics',
+          columns : {
+            'id' : {
+              'type' : 'TEXT',
+              'primary' : true
+            },
+            'system' : {
+              'type' : 'TEXT'
+            },
+            'system_id' : {
+              'type' : 'TEXT'
+            },
+            'created_at' : {
+              'type' : 'TEXT'
+            },
+            'updated_at' : {
+              'type' : 'TEXT'
+            },
+            'name' : {
+              'type' : 'TEXT'
+            },
+            'author' : {
+              'type' : 'TEXT'
+            },
+            'course_id' : {
+              'type' : 'TEXT'
+            }
+          }
         }
       ]
     });

@@ -1,5 +1,5 @@
-function Sync($q, Authentication, Accounts,  Courses, Events){
-  const RESOURCES = [Events, Courses];
+function Sync($q, Authentication, Accounts,  Courses, Events, Topics){
+  const RESOURCES = [Events, Courses, Topics];
 
   var fetchAll = function(){
     return RESOURCES.map(function(resource){
