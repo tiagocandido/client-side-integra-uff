@@ -80,6 +80,9 @@ angular.module('integraUff.config', [])
             },
             'value' : {
               'type' : 'TEXT'
+            },
+            'type' : {
+              'type' : 'TEXT'
             }
           }
         },

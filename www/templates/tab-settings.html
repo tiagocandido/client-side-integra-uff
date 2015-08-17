@@ -1,31 +1,44 @@
 <ion-view view-title="Configurações">
-  <ion-content>
-    <div class="list">
-      <div class="item" href="#">
-        Perfil
-      </div>
-      <div class="item item-toggle">
-        Notificações
-       <label class="toggle toggle-balanced">
-         <input type="checkbox">
-         <div class="track">
-           <div class="handle"></div>
-         </div>
-        </label>
-      </div>
-      <label class="item item-input item-select">
-        <div class="input-label">
-          Download Automático
+    <ion-content>
+        <div class="list">
+            <div class="item" href="#">
+                Perfil
+            </div>
+            <div class="item item-toggle">
+                Notificações
+                <label class="toggle toggle-balanced">
+                    <input type="checkbox">
+                    <div class="track">
+                        <div class="handle"></div>
+                    </div>
+                </label>
+            </div>
+            <label class="item item-input item-select">
+                <div class="input-label">
+                    Download Automático
+                </div>
+                <select>
+                    <option>Sempre</option>
+                    <option selected>Somente Wi-Fi</option>
+                    <option>Nunca</option>
+                </select>
+            </label>
+            <label class="item item-input item-select">
+                <div class="input-label">
+                    Intervalo de sincronização
+                </div>
+                <select ng-model="settings.SYNC_INTERVAL">
+                    <option value="900000">15 minutos</option>
+                    <option value="1800000">30 minutos</option>
+                    <option value="3600000">1 hora</option>
+                    <option value="21600000">6 horas</option>
+                    <option value="43200000">12 horas</option>
+                    <option value="86400000">1 dia</option>
+                </select>
+            </label>
+            <a class="item" href="#/tab/accounts">
+                Contas Sincronizadas
+            </a>
         </div>
-        <select>
-          <option>Sempre</option>
-          <option selected>Somente Wi-Fi</option>
-          <option>Nunca</option>
-        </select>
-      </label>
-      <a class="item" href="#/tab/accounts">
-        Contas Sincronizadas
-      </a>
-    </div>
-  </ion-content>
+    </ion-content>
 </ion-view>
