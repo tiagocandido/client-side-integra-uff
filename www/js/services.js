@@ -6,4 +6,5 @@ angular.module('integraUff.services', ['integraUff.config'])
     .factory('Courses', Courses)
     .factory('Events', Events)
     .factory('Sync', Sync)
-    .factory('DB', DB)
+    .factory('Settings', Settings)
+    .factory('DB', DB);
