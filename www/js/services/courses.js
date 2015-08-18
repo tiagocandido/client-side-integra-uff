@@ -36,6 +36,13 @@ function Courses($http, DB) {
         .then(function(result){
           return result;
         });
+    },
+    fetch_topics: function(courseId) {
+      return DB.select('topics',
+        {'course_id':courseId})
+        .then(function(result){
+          return result;
+        });
     }
   };
 

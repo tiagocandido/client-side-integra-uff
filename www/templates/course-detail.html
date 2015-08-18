@@ -4,6 +4,19 @@
     <p>{{course.info}}</p>
     <div class="list card">
       <div class="item item-divider">
+       Tópicos
+      </div>
+      <a href="#" ng-repeat="topic in topics" class="item item-icon-right">
+        {{topic.name}}
+        <p>por: {{topic.author}} - {{topic.updated_at}}</p>
+        <i class="icon ion-chevron-right icon-accessory"></i>
+      </a>
+      <p class="item" ng-if="!topics.length">
+        Nenhum tópico para esta disciplina.
+      </p>
+    </div>
+    <div class="list card">
+      <div class="item item-divider">
        Próximos Eventos
       </div>
       <a href="#" ng-repeat="event in events" class="item">
