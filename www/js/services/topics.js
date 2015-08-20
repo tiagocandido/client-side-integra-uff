@@ -1,4 +1,4 @@
-function Topics($http, DB) {
+function Topics($http, DB, Answers) {
   var self = {
     all: function() {
       return DB.selectAll('topics');
@@ -13,9 +13,16 @@ function Topics($http, DB) {
           .then(function(response){
             var topics = response.data;
             angular.forEach(topics, function(topic){
+              self.create_answers(topic.answers)
+              delete topic.answers
               self.create(topic)
             })
           });
+    },
+    create_answers: function(answers){
+      angular.forEach(answers, function(answer){
+        Answers.create(answer)
+      });
     }
   };
 
