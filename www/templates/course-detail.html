@@ -6,7 +6,7 @@
       <div class="item item-divider">
        Tópicos
       </div>
-      <a href="#" ng-repeat="topic in topics" class="item item-icon-right">
+      <a href="#/tab/topics/{{topic.id}}" ng-repeat="topic in topics" class="item item-icon-right">
         {{topic.name}}
         <p>por: {{topic.author}} - {{topic.updated_at}}</p>
         <i class="icon ion-chevron-right icon-accessory"></i>
@@ -19,10 +19,10 @@
       <div class="item item-divider">
        Próximos Eventos
       </div>
-      <a href="#" ng-repeat="event in events" class="item">
+      <div ng-repeat="event in events" class="item">
         {{event.name}}
         <p>{{event.starts | date: 'dd/MM/yyyy - HH:mm'}} até {{event.ends | date: 'dd/MM/yyyy - HH:mm'}}</p>
-      </a>
+      </div>
       <p class="item" ng-if="!events.length">
         Nenhum evento para esta disciplina.
       </p>

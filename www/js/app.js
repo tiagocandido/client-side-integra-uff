@@ -133,6 +133,15 @@ angular.module('integraUff', ['ionic', 'angular-websql', 'integraUff.controllers
               }
             }
           })
+          .state('tab.topic-detail', {
+            url: '/topics/:topicId',
+            views: {
+              'tab-dash': {
+                templateUrl: 'templates/topic-detail.html',
+                controller: 'TopicDetailsCtrl'
+              }
+            }
+          })
 
           .state('tab.events', {
             url: '/events',

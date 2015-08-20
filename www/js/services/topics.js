@@ -6,6 +6,12 @@ function Topics($http, DB, Answers) {
     create: function(topic_attributes){
       return DB.insert('topics', topic_attributes, true)
     },
+    get: function(topicId) {
+      return DB.select('topics', {'id':topicId})
+      .then(function(result){
+        return result.pop();
+      });
+    },
     fetch: function(){
       //TODO: iterate through accounts making the requests
       return $http
@@ -23,6 +29,13 @@ function Topics($http, DB, Answers) {
       angular.forEach(answers, function(answer){
         Answers.create(answer)
       });
+    },
+    fetch_answers: function(topicId) {
+      return DB.select('answers',
+        {'topic_id':topicId})
+        .then(function(result){
+          return result;
+        });
     }
   };
 

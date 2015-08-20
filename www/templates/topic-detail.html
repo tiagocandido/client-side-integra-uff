@@ -1,0 +1,15 @@
+<ion-view view-title="Tópico">
+  <ion-content class="padding has-header">
+    <h4 class="title">{{topic.name}}</h4>
+    <div ng-repeat="answer in answers" class="card">
+      <div class="item item-text-wrap">
+       <h2>{{answer.author}}</h2>
+       {{answer.content}}
+       <p>{{answer.updated_at}}</p>
+      </div>
+    </div>
+    <p class="item" ng-if="!answers.length">
+      Nenhuma resposta para este tópico.
+    </p>
+  </ion-content>
+</ion-view>
