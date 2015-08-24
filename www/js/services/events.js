@@ -18,9 +18,11 @@ function Events($http, DB) {
           .get('/api/conexao_uff/events')
           .then(function(response){
             var events = response.data;
-            angular.forEach(events, function(event){
-              self.create(event)
-            })
+            DB.delete('events', { 'system' : 'conexao_uff'}).then(function(){
+              angular.forEach(events, function(event){
+                self.create(event)
+              })
+            });
           });
     }
   };
