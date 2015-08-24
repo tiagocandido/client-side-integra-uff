@@ -8,7 +8,7 @@ function SettingsCtrl($scope, Settings) {
   $scope.$watchCollection('settings', function(newSettings, oldSettings){
     for(var prop in newSettings){
       if(newSettings.hasOwnProperty(prop) && parseInt(newSettings[prop]) != oldSettings[prop]){
-        Settings.setSetting(prop, newSettings[prop])
+        Settings.setSetting(prop, newSettings[prop], true)
       }
     }
   })

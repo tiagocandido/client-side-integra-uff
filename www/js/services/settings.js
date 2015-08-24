@@ -1,4 +1,4 @@
-function Settings(DB){
+function Settings($filter, DB){
   var self = this;
 
   self.getSetting = function(name){
@@ -14,13 +14,20 @@ function Settings(DB){
     })
   };
 
-  self.setSetting = function(name, value){
+  self.getAllSettings = function(){
+    return DB.selectAll('settings')
+  };
+
+  self.setSetting = function(name, value, replace){
     var type = isNaN(value) ? 'TEXT' : 'INTEGER';
-    return DB.insert('settings', { name : name, value : value, type : type }, true)
+    return DB.insert('settings', { name : name, value : value, type : type }, replace)
   };
 
   self.init = function(){
-    self.setSetting('SYNC_INTERVAL', 1000 * 60 * 60, 'INTEGER'); // Sets default sync interval to 1 hour
+    self.getAllSettings().then(function(settings){
+      if (!$filter('filter')(settings, {name : 'SYNC_INTERVAL'}).length)
+        self.setSetting('SYNC_INTERVAL', 1000 * 60 * 60, 'INTEGER', false); // Sets default sync interval to 1 hour
+    });
   };
 
   return self;
