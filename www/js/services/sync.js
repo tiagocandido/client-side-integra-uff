@@ -28,7 +28,7 @@ function Sync($q, Authentication, Accounts,  Courses, Events){
   };
 
 
-  var self = {
+  return {
     hasSyncedAccount: function(){
       return Accounts.hasAccount();
     },
@@ -41,6 +41,4 @@ function Sync($q, Authentication, Accounts,  Courses, Events){
       return $q.all(requests);
     }
   };
-
-  return self;
 }

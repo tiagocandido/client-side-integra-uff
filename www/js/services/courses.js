@@ -1,7 +1,7 @@
 function Courses($http, DB) {
   var self =  {
     all: function() {
-      return DB.selectAll('courses');
+      return DB.selectAll('courses')
     },
     remove: function(course) {
     },
@@ -19,10 +19,12 @@ function Courses($http, DB) {
       return $http
           .get('/api/conexao_uff/courses')
           .then(function(response){
-            var courses = response.data;
-            angular.forEach(courses, function(course){
-              self.create(course)
-            })
+            DB.delete('courses', { 'system' : 'conexao_uff'}).then(function(){
+              var courses = response.data;
+              angular.forEach(courses, function(course){
+                self.create(course)
+              })
+            });
           });
     },
     fetch_events: function(courseId) {

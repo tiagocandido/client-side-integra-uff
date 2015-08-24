@@ -37,7 +37,7 @@ function DB($webSql, $q, DB_CONFIG){
     return db.update(tableName, fields, where)
   };
   self.delete = function(tableName, where){
-    return db.selectAll(tableName, where)
+    return db.del(tableName, where)
   };
 
   var resultSetRowListToArray = function(resultSetRowList){
