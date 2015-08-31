@@ -179,6 +179,9 @@ angular.module('integraUff.config', [])
             },
             'download_url' : {
               'type' : 'TEXT'
+            },
+            'owner' : {
+              'type' : 'TEXT'
             }
           }
         }

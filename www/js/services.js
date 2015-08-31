@@ -7,6 +7,7 @@ angular.module('integraUff.services', ['integraUff.config'])
     .factory('Events', Events)
     .factory('Topics', Topics)
     .factory('Answers', Answers)
+    .factory('Files', Files)
     .factory('Sync', Sync)
     .factory('Settings', Settings)
     .factory('DB', DB);

@@ -21,6 +21,10 @@
       {
         "path": "/api/conexao_uff/topics",
         "proxyUrl": "http://localhost:3000/conexao_uff/topics"
+      },
+      {
+        "path": "/api/conexao_uff/files",
+        "proxyUrl": "http://localhost:3000/conexao_uff/files"
       }
     ]
 }
