@@ -151,6 +151,16 @@ angular.module('integraUff', ['ionic', 'angular-websql', 'integraUff.controllers
                 controller: 'EventsCtrl'
               }
             }
+          })
+
+          .state('tab.files', {
+            url: '/files',
+            views: {
+              'tab-dash': {
+                templateUrl: 'templates/tab-files.html',
+                controller: 'FilesCtrl'
+              }
+            }
           });
 
       // if none of the above states are matched, use this as the fallback
