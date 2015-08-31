@@ -142,6 +142,45 @@ angular.module('integraUff.config', [])
               'type' : 'TEXT'
             }
           }
+        },
+        {
+          name : 'files',
+          columns : {
+            'id' : {
+              'type' : 'TEXT',
+              'primary' : true
+            },
+            'system' : {
+              'type' : 'TEXT'
+            },
+            'system_id' : {
+              'type' : 'TEXT'
+            },
+            'created_at' : {
+              'type' : 'TEXT'
+            },
+            'updated_at' : {
+              'type' : 'TEXT'
+            },
+            'description' : {
+              'type' : 'TEXT'
+            },
+            'course_id' : {
+              'type' : 'TEXT'
+            },
+            'file_name' : {
+              'type' : 'TEXT'
+            },
+            'file_size' : {
+              'type' : 'TEXT'
+            },
+            'content_type' : {
+              'type' : 'TEXT'
+            },
+            'download_url' : {
+              'type' : 'TEXT'
+            }
+          }
         }
       ]
     });
