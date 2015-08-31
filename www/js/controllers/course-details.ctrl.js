@@ -7,6 +7,9 @@ function CourseDetailsCtrl($scope, $stateParams, Courses) {
     Courses.fetch_topics($scope.course.id).then(function(topics){
       $scope.topics = topics;
     });
+    Courses.fetch_files($scope.course.id).then(function(files){
+      $scope.files = files;
+    });
   });
 };
 

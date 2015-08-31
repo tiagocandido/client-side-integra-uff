@@ -2,10 +2,7 @@
   <ion-content>
     <ion-list>
       <ion-item class="item-remove-animate item-icon-right" ng-repeat="file in files" type="item-text-wrap">
-        <h2>{{file.description}} ({{ file.content_type }})</h2>
-        <p>Enviado por {{ file.owner }}</p>
-        <p>{{ file.updated_at | date: 'dd/MM/yyyy - HH:mm' }}</p>
-        <i class="icon ion-ios-download-outline"></i>
+        <div ng-include src="'templates/files/file.html'"></div>
       </ion-item>
     </ion-list>
   </ion-content>

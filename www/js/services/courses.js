@@ -45,6 +45,13 @@ function Courses($http, DB) {
         .then(function(result){
           return result;
         });
+    },
+    fetch_files: function(courseId) {
+      return DB.select('files',
+        {'course_id':courseId})
+        .then(function(result){
+          return result;
+        });
     }
   };
 

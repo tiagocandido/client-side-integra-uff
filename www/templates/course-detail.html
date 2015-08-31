@@ -2,6 +2,8 @@
   <ion-content class="padding has-header">
     <h4 class="title">{{course.name}}</h4>
     <p>{{course.info}}</p>
+
+    <!-- Topics list -->
     <div class="list card">
       <div class="item item-divider">
        Tópicos
@@ -12,9 +14,11 @@
         <i class="icon ion-chevron-right icon-accessory"></i>
       </a>
       <p class="item" ng-if="!topics.length">
-        Nenhum tópico para esta disciplina.
+        Nenhum tópico desta disciplina.
       </p>
     </div>
+
+    <!-- Events list -->
     <div class="list card">
       <div class="item item-divider">
        Próximos Eventos
@@ -24,8 +28,22 @@
         <p>{{event.starts | date: 'dd/MM/yyyy - HH:mm'}} até {{event.ends | date: 'dd/MM/yyyy - HH:mm'}}</p>
       </div>
       <p class="item" ng-if="!events.length">
-        Nenhum evento para esta disciplina.
+        Nenhum evento desta disciplina.
       </p>
     </div>
+
+    <!-- Files list -->
+    <div class="list card">
+      <div class="item item-divider">
+       Arquivos
+      </div>
+      <div ng-repeat="file in files" class="item">
+        <div ng-include src="'templates/files/file.html'"></div>
+      </div>
+      <p class="item" ng-if="!files.length">
+        Nenhum arquivo desta disciplina.
+      </p>
+    </div>
+
   </ion-content>
 </ion-view>
