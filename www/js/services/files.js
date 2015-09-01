@@ -1,7 +1,11 @@
 function Files($http, DB) {
   var self = {
     all: function() {
-      return DB.selectAll('files');
+      return DB.selectAllWithJoin('files', {
+        tableName: 'courses',
+        foreignKey: 'course_id',
+        columns: 'courses.name as course_name'
+       });
     },
     create: function(file_attributes){
       return DB.insert('files', file_attributes, true)

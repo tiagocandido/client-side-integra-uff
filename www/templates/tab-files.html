@@ -1,9 +1,14 @@
 <ion-view view-title="Arquivos">
   <ion-content>
     <ion-list>
-      <ion-item class="item-remove-animate item-icon-right" ng-repeat="file in files" type="item-text-wrap">
-        <div ng-include src="'templates/files/file.html'"></div>
-      </ion-item>
+      <div ng-repeat="(course, course_files) in files | groupBy: 'course_name'">
+        <ion-item class="item-remove-animate item-divider" type="item-text-wrap">
+          {{ course }}
+        </ion-item>
+        <ion-item class="item-remove-animate item-icon-right" ng-repeat="file in course_files" type="item-text-wrap">
+          <div ng-include src="'templates/files/file.html'"></div>
+        </ion-item>
+      </div>
     </ion-list>
   </ion-content>
 </ion-view>

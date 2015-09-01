@@ -85,20 +85,20 @@ angular.module("angular-websql", []).factory("$webSql", ["$q",
 								if(typeof b[c] !== "undefined" && typeof b[c] !== "object" && typeof b[c] === "string" && !b[c].match(/NULL/ig)) v.push(b[c]);
 								else if(typeof b[c] !== "undefined" && typeof b[c] !== "object" && typeof b[c] === "number") v.push(b[c]);
 								else if(typeof b[c]["value"] !== "undefined" && typeof b[c] === "object" && (typeof b[c]["value"] === "number" || !b[c]["value"].match(/NULL/ig))) v.push(b[c]["value"]);
-								a += (typeof b[c] === "object") ? 
-												(typeof b[c]["union"] === "undefined") ? 
-													(typeof b[c]["value"] === "string" && b[c]["value"].match(/NULL/ig)) ? 
-														"`" + c + "` " + b[c]["value"] : 
+								a += (typeof b[c] === "object") ?
+												(typeof b[c]["union"] === "undefined") ?
+													(typeof b[c]["value"] === "string" && b[c]["value"].match(/NULL/ig)) ?
+														"`" + c + "` " + b[c]["value"] :
 														(typeof b[c]["operator"] !== "undefined")?
-															"`" + c + "` " + b[c]["operator"] + " ? " : 
-															"`" + c + "` = ?" : 
-													(typeof b[c]["value"] === "string" && b[c]["value"].match(/NULL/ig)) ? 
-															"`" + c + "` " + b[c]["value"] + " " + b[c]["union"] + " " : 
-															(typeof b[c]["operator"] !== "undefined") ? 
-																"`" + c + "` " + b[c]["operator"] + " ? " + b[c]["union"] + " " : 
-																"`" + c + "` = ? " + b[c]["union"] + " " : 
-												(typeof b[c] === "string" && b[c].match(/NULL/ig)) ? 
-													"`" + c + "` " + b[c] : 
+															"`" + c + "` " + b[c]["operator"] + " ? " :
+															"`" + c + "` = ?" :
+													(typeof b[c]["value"] === "string" && b[c]["value"].match(/NULL/ig)) ?
+															"`" + c + "` " + b[c]["value"] + " " + b[c]["union"] + " " :
+															(typeof b[c]["operator"] !== "undefined") ?
+																"`" + c + "` " + b[c]["operator"] + " ? " + b[c]["union"] + " " :
+																"`" + c + "` = ? " + b[c]["union"] + " " :
+												(typeof b[c] === "string" && b[c].match(/NULL/ig)) ?
+													"`" + c + "` " + b[c] :
 													"`" + c + "` = ?"
 							}
 							return {w:a,p:v};

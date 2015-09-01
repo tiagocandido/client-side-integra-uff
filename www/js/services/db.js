@@ -33,6 +33,18 @@ function DB($webSql, $q, DB_CONFIG){
       return resultSetRowListToArray(result.rows);
     })
   };
+  self.selectAllWithJoin = function(tableName, joinTable){
+    var columns = "`" + tableName + "`.*, ";
+    columns += joinTable.columns;
+
+    var query = "SELECT " + columns + " FROM `" + tableName + "`";
+    query += " INNER JOIN `" + joinTable.tableName
+      + "` ON `" + tableName + "`.`" + joinTable.foreignKey + "` = `" + joinTable.tableName + "`.`id`;";
+
+    return db.executeQuery(query, []).then(function(result){
+      return resultSetRowListToArray(result.rows);
+    })
+  };
   self.update = function(tableName, fields, where){
     return db.update(tableName, fields, where)
   };
