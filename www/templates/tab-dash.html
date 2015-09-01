@@ -1,40 +1,15 @@
 <ion-view view-title="Integra UFF">
-  <ion-content class="padding">
-    <div class="row">
-      <div class="col">
-        <a class="button button-block button-outline button-positive icon ion-university" href="#/tab/courses">
-          Disciplinas
-        </a>
-      </div>
-      <div class="col">
-        <a class="button button-block button-outline button-positive icon ion-android-calendar" href="#/tab/events">
-          Eventos
-        </a>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col">
-        <a class="button button-block button-outline button-positive icon ion-ios-folder" href="#/tab/files">
-          Arquivos
-        </a>
-      </div>
-      <div class="col">
-        <a class="button button-block button-outline button-positive icon ion-chatboxes" href="#/tab/chats">
-          Mensagens
-        </a>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col">
-        <button class="button button-block button-outline button-positive icon ion-ios-people">
-          Amigos
-        </button>
-      </div>
-      <div class="col">
-        <a class="button button-block button-outline button-positive icon ion-gear-a" href="#/tab/settings">
-          Configurações
-        </a>
-      </div>
+  <ion-content scroll="false">
+    <div class="list full-height">
+      <a class="item dash-item disciplinas" href="#/tab/courses">
+          <header><h1><i class="icon ion-university"></i> Disciplinas</h1></header>
+      </a>
+      <a class="item dash-item eventos" href="#/tab/events">
+        <header><h1><i class="icon ion-android-calendar"></i> Eventos</h1></header>
+      </a>
+      <a class="item dash-item arquivos" href="#/tab/files">
+        <header><h1><i class="icon ion-ios-folder"></i> Arquivos</h1></header>
+      </a>
     </div>
   </ion-content>
 </ion-view>

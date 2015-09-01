@@ -1,1 +1,56 @@
 /* Empty. Add your own CSS if you like */
+.full-height{
+    height: 100%;
+}
+.dash-item{
+    position: relative;
+    height: 33.34%;
+    font-weight: bold;
+    background-attachment: fixed;
+    background-size: 100%;
+    overflow: hidden;
+}
+.dash-item > header h1{
+    font-size: 24px;
+    color: white;
+    margin: 0;
+    position: relative;
+    z-index: 1;
+}
+
+.dash-item.disciplinas{
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5)), url("../img/disciplinas.jpg");
+}
+
+.dash-item.eventos{
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5)), url("../img/eventos.jpg");
+    background-position: 0;
+}
+
+.dash-item.arquivos{
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5)), url("../img/arquivos.jpg");
+    background-position: 50% 100%;
+}
+
+.dash-item > header {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px 10px;
+    background: inherit;
+    background-attachment: fixed;
+}
+.dash-item > header::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: inherit;
+    background-attachment: fixed;
+    -webkit-filter: blur(12px);
+    filter: blur(12px);
+    transform: scale(2) translateY(20px);
+}
