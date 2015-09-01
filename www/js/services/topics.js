@@ -18,11 +18,13 @@ function Topics($http, DB, Answers) {
           .get('/api/conexao_uff/topics')
           .then(function(response){
             var topics = response.data;
-            angular.forEach(topics, function(topic){
-              self.create_answers(topic.answers)
-              delete topic.answers
-              self.create(topic)
-            })
+            DB.delete('topics', { 'system' : 'conexao_uff'}).then(function(){
+              angular.forEach(topics, function(topic){
+                self.create_answers(topic.answers);
+                delete topic.answers;
+                self.create(topic)
+              })
+            });
           });
     },
     create_answers: function(answers){
