@@ -1,4 +1,4 @@
-function Settings($filter, DB){
+function Settings($filter, $q, DB){
   var self = this;
 
   self.getSetting = function(name){
@@ -24,10 +24,13 @@ function Settings($filter, DB){
   };
 
   self.init = function(){
+    var defered = $q.defer();
     self.getAllSettings().then(function(settings){
       if (!$filter('filter')(settings, {name : 'SYNC_INTERVAL'}).length)
         self.setSetting('SYNC_INTERVAL', 1000 * 60 * 60, 'INTEGER', false); // Sets default sync interval to 1 hour
+      defered.resolve();
     });
+    return defered.promise
   };
 
   return self;

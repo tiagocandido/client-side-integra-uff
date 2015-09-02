@@ -1,6 +1,4 @@
-function ConexaoUffInterceptor($q, $injector, Accounts){
-  const UNAUTHORIZED = 401;
-  var authenticating = false;
+function ConexaoUffInterceptor($q, Accounts){
   return {
     request : function(config){
       var deferred = $q.defer();

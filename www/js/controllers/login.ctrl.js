@@ -1,11 +1,9 @@
-function LoginCtrl($scope, $state, $ionicLoading, $ionicPopup, Authentication, Sync) {
+function LoginCtrl($scope, $state, $ionicPopup, Authentication, Sync) {
   $scope.credentials = {};
   $scope.login = function(){
     Authentication.login('conexao_uff', $scope.credentials)
         .then(function(){
-          startSyncing();
-          Sync.run().then(function(){
-            stopSyncing();
+          Sync.now().then(function(){
             $state.transitionTo('tab.dash');
           });
         }, function(){
@@ -14,15 +12,5 @@ function LoginCtrl($scope, $state, $ionicLoading, $ionicPopup, Authentication, S
             template: 'Usuário e/ou senha inválido(s)'
           });
         });
-  };
-
-  var startSyncing = function(){
-    $ionicLoading.show({
-      templateUrl: 'templates/syncing.html'
-    });
-  };
-
-  var stopSyncing = function(){
-    $ionicLoading.hide();
-  };
+  }
 }

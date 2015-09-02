@@ -7,7 +7,7 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('integraUff', ['ionic', 'angular-websql', 'angular.filter', 'integraUff.controllers', 'integraUff.services'])
 
-    .run(function($ionicPlatform, DB, Sync, Settings, $state, $interval) {
+    .run(function($ionicPlatform, DB, Sync, Settings) {
         $ionicPlatform.ready(function() {
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
             // for form inputs)
@@ -18,20 +18,18 @@ angular.module('integraUff', ['ionic', 'angular-websql', 'angular.filter', 'inte
                 // org.apache.cordova.statusbar required
                 StatusBar.styleLightContent();
             }
-            var sync = function(){
-                Sync.hasSyncedAccount().then(function(hasAccount){
-                    if(hasAccount) Sync.run(); else $state.transitionTo('tab.accounts');
+
+
+            DB.init()
+                .then(function(){
+                    return Settings.init();
                 })
-            };
-
-            DB.init().then(function(){
-                Settings.init();
-                sync();
-            });
-
-            Settings.getSetting('SYNC_INTERVAL').then(function(value){
-                if(value != undefined) $interval(sync, value )
-            })
+                .then(function(){
+                    return Settings.getSetting('SYNC_INTERVAL')
+                })
+                .then(function(interval){
+                    Sync.start(interval);
+                });
         });
     })
 
