@@ -1,4 +1,4 @@
-function FilesCtrl($scope, Files, $cordovaFileTransfer, $ionicPlatform, Accounts, $timeout) {
+function FilesCtrl($scope, Files, $cordovaFileTransfer, $ionicPlatform, Accounts, $timeout, $cordovaLocalNotification) {
   Files.all().then(function(files){
     $scope.files = files
   });
@@ -15,6 +15,12 @@ function FilesCtrl($scope, Files, $cordovaFileTransfer, $ionicPlatform, Accounts
         $ionicPlatform.ready(function() {
           $cordovaFileTransfer.download(file.download_url, targetPath, options, true).then(function (result) {
               console.log('Success');
+              $cordovaLocalNotification.add({
+                date: new Date(),
+                message: file.file_name + '-' + file.system,
+                title: "IntegraUFF - Arquivo baixado",
+                autoCancel: true,
+              });
           }, function (error) {
               console.log('Error');
           }, function (progress) {
