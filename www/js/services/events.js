@@ -1,7 +1,11 @@
 function Events($http, DB) {
   var self = {
     all: function() {
-      return DB.selectAll('events');
+      return DB.selectAllWithJoin('events', {
+        tableName: 'courses',
+        foreignKey: 'course_id',
+        columns: 'courses.name as course_name'
+       });
     },
     remove: function(_event) {
 
@@ -29,3 +33,4 @@ function Events($http, DB) {
 
   return self;
 }
+
