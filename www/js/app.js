@@ -36,7 +36,9 @@ angular.module('integraUff', ['ionic', 'angular-websql', 'angular.filter', 'inte
     })
 
 
-    .config(function($stateProvider, $urlRouterProvider, $httpProvider) {
+    .config(function($stateProvider, $urlRouterProvider, $httpProvider, $ionicConfigProvider) {
+        $ionicConfigProvider.tabs.position('bottom');
+        $ionicConfigProvider.tabs.style('standard');
 
         $httpProvider.interceptors.push('ConexaoUffInterceptor');
 
