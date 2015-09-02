@@ -6,7 +6,7 @@ function DB($webSql, $q, DB_CONFIG){
     var deferred = $q.defer(),
         queries = [];
     // Use self.db = window.sqlitePlugin.openDatabase({name: DB_CONFIG.name}); in production
-    db = $webSql.openDatabase(DB_CONFIG.name, '1.0', 'database', -1);
+    db = $webSql.openDatabase(DB_CONFIG.name);
 
     angular.forEach(DB_CONFIG.tables, function(table) {
       queries.push(db.createTable(table.name, table.columns));
@@ -54,9 +54,7 @@ function DB($webSql, $q, DB_CONFIG){
 
   var resultSetRowListToArray = function(resultSetRowList){
     var array = [];
-    angular.forEach(resultSetRowList,function(item){
-      array.push(item);
-    });
+    for(var i=0; i< resultSetRowList.length; i++) array.push(resultSetRowList.item(i));
     return array
   };
 
