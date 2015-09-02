@@ -15,7 +15,7 @@ function Events($http, DB) {
     fetch: function(){
       //TODO: iterate through accounts making the requests
       return $http
-          .get('/api/conexao_uff/events')
+          .get('https://integra-uff.herokuapp.com/conexao_uff/events')
           .then(function(response){
             var events = response.data;
             DB.delete('events', { 'system' : 'conexao_uff'}).then(function(){

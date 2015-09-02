@@ -15,7 +15,7 @@ function Topics($http, DB, Answers) {
     fetch: function(){
       //TODO: iterate through accounts making the requests
       return $http
-          .get('/api/conexao_uff/topics')
+          .get('https://integra-uff.herokuapp.com/conexao_uff/topics')
           .then(function(response){
             var topics = response.data;
             DB.delete('topics', { 'system' : 'conexao_uff'}).then(function(){

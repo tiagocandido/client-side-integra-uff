@@ -2,9 +2,11 @@ function Sync($q, Authentication, Accounts,  Courses, Events, Topics, Files){
   const RESOURCES = [Events, Courses, Topics, Files];
 
   var fetchAll = function(){
-    return RESOURCES.map(function(resource){
-      return resource.fetch();
+    var resources = [];
+    angular.forEach(RESOURCES, function(resource){
+      resources.push(resource.fetch());
     });
+    return resources;
   };
 
   var reAuthenticate = function(system){
@@ -34,9 +36,11 @@ function Sync($q, Authentication, Accounts,  Courses, Events, Topics, Files){
     },
     run: function(){
       var requests = Accounts.all().then(function(accounts){
-        return accounts.map(function(account){
-          return sync(account)
-        })
+        var fetched = [];
+        angular.forEach(accounts, function(account){
+          fetched.push(sync(account));
+        });
+        return fetched;
       });
       return $q.all(requests);
     }

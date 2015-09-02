@@ -8,15 +8,16 @@
 angular.module("angular-websql", []).factory("$webSql", ["$q",
 	function($q) {
 		return {
-			openDatabase: function(dbName, version, desc, size) {
+			openDatabase: function(dbName) {
 				try {
-					var db = openDatabase(dbName, version, desc, size);
+                  var db = window.sqlitePlugin.openDatabase({name: dbName});
 					if (typeof(openDatabase) == "undefined")
 						throw "Browser does not support web sql";
 					return {
 						executeQuery: function(query, values) {
 							var deferred = $q.defer();
-                            console.log(query);
+                            //console.log(query);
+                            //console.log(values);
 							db.transaction(function(tx) {
                               tx.executeSql(query, values, function(tx, results) {
 									deferred.resolve(results);

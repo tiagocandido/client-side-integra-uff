@@ -17,7 +17,7 @@ function Courses($http, DB) {
     fetch: function(){
       //TODO: iterate through accounts making the requests
       return $http
-          .get('/api/conexao_uff/courses')
+          .get('https://integra-uff.herokuapp.com/conexao_uff/courses')
           .then(function(response){
             DB.delete('courses', { 'system' : 'conexao_uff'}).then(function(){
               var courses = response.data;
