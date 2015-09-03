@@ -28,7 +28,7 @@ angular.module('integraUff', ['ionic', 'angular-websql', 'angular.filter', 'inte
                     return Settings.getSetting('SYNC_INTERVAL')
                 })
                 .then(function(interval){
-                    Sync.start(interval);
+                    //Sync.start(interval);
                 });
         });
     })
