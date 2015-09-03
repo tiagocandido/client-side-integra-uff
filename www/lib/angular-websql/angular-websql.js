@@ -10,7 +10,7 @@ angular.module("angular-websql", []).factory("$webSql", ["$q",
 		return {
 			openDatabase: function(dbName) {
 				try {
-                  var db = window.sqlitePlugin.openDatabase({name: dbName});
+                  var db = typeof cordova != 'undefined' ? window.sqlitePlugin.openDatabase({name: dbName}) : openDatabase(dbName, '1.0', 'database', -1);
 					if (typeof(openDatabase) == "undefined")
 						throw "Browser does not support web sql";
 					return {
