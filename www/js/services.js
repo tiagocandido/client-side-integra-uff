@@ -10,4 +10,5 @@ angular.module('integraUff.services', ['integraUff.config'])
     .factory('Files', Files)
     .factory('Sync', Sync)
     .factory('Settings', Settings)
-    .factory('DB', DB);
+    .factory('DB', DB)
+    .factory('FileManager', FileManager);
