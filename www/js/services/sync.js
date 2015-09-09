@@ -50,9 +50,9 @@ var fetchAll = function(){
         })
       }
       else {
-        deffered.resolve();
-        $rootScope.$broadcast('SYNC_STOP');
         $rootScope.$broadcast('NOT_AUTHENTICATED');
+        $rootScope.$broadcast('SYNC_STOP');
+        deffered.resolve();
       }
     });
     return deffered.promise;
