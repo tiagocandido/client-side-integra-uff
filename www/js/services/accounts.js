@@ -11,6 +11,10 @@ function Accounts(DB) {
     return DB.selectAll('accounts')
   };
 
+  self.delete = function(system){
+    return DB.delete('accounts', { 'system' : system })
+  };
+
   self.getToken = function(system) {
     return DB.select('accounts', {'system' : system }).then(function(result){
       return result.length ? result[0].token : undefined;

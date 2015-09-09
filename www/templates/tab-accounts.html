@@ -1,7 +1,10 @@
 <ion-view view-title="Sincronizar Plataforma">
     <ion-content class="padding">
-        <a href="#tab/login" class="button button-full button-positive">
-            Conexão UFF
+        <a href="#tab/login" class="button button-full button-positive" ng-show="!authenticated && showButtons">
+            Sincronizar Conexão UFF
+        </a>
+        <a href="#" ng-click="logout()" class="button button-full button-positive" ng-show="authenticated && showButtons">
+            Dessincronizar Conexão UFF
         </a>
     </ion-content>
 </ion-view>

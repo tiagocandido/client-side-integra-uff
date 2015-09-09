@@ -7,6 +7,21 @@ function Authentication($http, Accounts){
             return Accounts.create('conexao_uff', credentials.login, credentials.password, response.data.token)
           })
     },
+    logout: function(system){
+      return Accounts.getToken(system).then(function(token){
+        var logoutPath = 'https://integra-uff.herokuapp.com/' + system + '/authentication/logout';
+        return $http({
+          url: logoutPath,
+          method: "GET",
+          params: { token: token }
+        })
+            .then(function(response){
+              return Accounts.delete(system).then(function(){
+                return response.data.signed_out;
+              });
+            });
+      })
+    },
     isTokenValid : function(system){
       var tokenValidationPath = 'https://integra-uff.herokuapp.com/' + system + '/authentication/validation';
       return Accounts.getToken(system).then(function(token){
@@ -15,9 +30,9 @@ function Authentication($http, Accounts){
           method: "GET",
           params: { token: token }
         })
-        .then(function(response){
-          return response.data.valid;
-        });
+            .then(function(response){
+              return response.data.valid;
+            });
       })
     }
   };
