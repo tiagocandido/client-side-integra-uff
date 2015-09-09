@@ -37,8 +37,8 @@
       <div class="item item-divider">
        Arquivos
       </div>
-      <div ng-repeat="file in files" class="item item-button-right" ng-include src="'templates/files/file.html'">
-      </div>
+      <a ng-repeat="file in files" class="item item-icon-left item-icon-right" ng-include src="'templates/files/file.html'" href="#/tab/files/{{file.id}}">
+      </a>
       <p class="item" ng-if="!files.length">
         Nenhum arquivo desta disciplina.
       </p>

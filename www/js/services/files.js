@@ -7,6 +7,12 @@ function Files($http, DB) {
         columns: 'courses.name as course_name'
        });
     },
+    get: function(fileId) {
+      return DB.select('files', {'id':fileId})
+      .then(function(result){
+        return result.pop();
+      });
+    },
     create: function(file_attributes){
       return DB.insert('files', file_attributes, true)
     },

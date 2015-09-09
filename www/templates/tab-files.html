@@ -5,8 +5,7 @@
         <ion-item class="item-remove-animate item-divider" type="item-text-wrap">
           {{ course }}
         </ion-item>
-        <ion-item class="item-remove-animate" ng-repeat="file in course_files" type="item-text-wrap" ng-include src="'templates/files/file.html'">
-        </ion-item>
+        <a ng-repeat="file in course_files" class="item item-icon-left item-icon-right" ng-include src="'templates/files/file.html'" href="#/tab/files/{{file.id}}" />
       </div>
     </ion-list>
   </ion-content>

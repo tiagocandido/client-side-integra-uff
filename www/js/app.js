@@ -160,6 +160,15 @@ angular.module('integraUff', ['ionic', 'angular-websql', 'angular.filter', 'inte
                         controller: 'FilesCtrl'
                     }
                 }
+            })
+            .state('tab.file-detail', {
+                url: '/files/:fileId',
+                views: {
+                    'tab-dash': {
+                        templateUrl: 'templates/files/file-detail.html',
+                        controller: 'FileDetailsCtrl'
+                    }
+                }
             });
 
         // if none of the above states are matched, use this as the fallback
