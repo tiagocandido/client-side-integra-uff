@@ -9,4 +9,5 @@ angular.module('integraUff.controllers', [])
     .controller('LoginCtrl', LoginCtrl)
     .controller('AccountsCtrl', AccountsCtrl)
     .controller('CourseDetailsCtrl', CourseDetailsCtrl)
-    .controller('TopicDetailsCtrl', TopicDetailsCtrl);
+    .controller('TopicDetailsCtrl', TopicDetailsCtrl)
+    .controller('FileDetailsCtrl', FileDetailsCtrl);
