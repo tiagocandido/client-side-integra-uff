@@ -13,6 +13,7 @@
       <progress max="100" value="{{ downloadProgress }}" ng-show="downloading"></progress>
       <button class='button button-block button-balanced' ng-click="fileDownload(file)" ng-hide="downloaded || downloading">Baixar</button>
       <button class='button button-block button-positive' ng-click="fileOpen(file)" ng-show="downloaded">Abrir</button>
+      <a href="#" ng-click="fileRemove(file)" ng-show="downloaded" class="remove-link">Apagar</a>
     </div>
   </ion-content>
 </ion-view>

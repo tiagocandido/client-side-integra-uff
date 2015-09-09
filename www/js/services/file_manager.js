@@ -20,6 +20,11 @@ function FileManager($http, $ionicPlatform, $cordovaFileOpener2, Accounts, $cord
     check: function(file){
       var filePath = ['integrauff', file.system, file.course_name.replace('/','-'), file.system_id, file.file_name].join("/");
       return $cordovaFile.checkFile(cordova.file.externalRootDirectory, filePath);
+    },
+
+    remove: function(file){
+      var filePath = ['integrauff', file.system, file.course_name.replace('/','-'), file.system_id].join("/");
+      return $cordovaFile.removeRecursively(cordova.file.externalRootDirectory, filePath);
     }
   };
 
