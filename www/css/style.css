@@ -73,3 +73,10 @@ a.dash-item.item{
 .file-detail .actions {
     margin-top: 35px;
 }
+
+.file-detail .remove-link {
+    float: right;
+    margin-top: 10px;
+    color: #DC5656;
+    text-decoration: none;
+}

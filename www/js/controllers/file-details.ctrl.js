@@ -6,12 +6,14 @@ function FileDetailsCtrl($scope, $stateParams, $timeout, $cordovaFileTransfer, $
     Courses.get(file.course_id).then(function(course){
       $scope.file.course_name = course.name;
 
-      FileManager.check(file)
-        .then(function(success) {
-          $scope.downloaded = true;
-        }, function (error) {
-          $scope.downloaded = false;
-      });;
+      $ionicPlatform.ready(function() {
+        FileManager.check(file)
+          .then(function(success) {
+            $scope.downloaded = true;
+          }, function (error) {
+            $scope.downloaded = false;
+        });
+      });
     });
 
   });
@@ -50,6 +52,18 @@ function FileDetailsCtrl($scope, $stateParams, $timeout, $cordovaFileTransfer, $
   };
 
   $scope.fileOpen = function(file){
-    FileManager.open(file);
+    $ionicPlatform.ready(function() {
+      FileManager.open(file);
+    });
+  };
+
+  $scope.fileRemove = function(file){
+    $ionicPlatform.ready(function() {
+      FileManager.remove(file).
+        then(function(success) {
+            $scope.downloaded = false;
+          }, function (error) {
+        });;
+    });
   };
 };
