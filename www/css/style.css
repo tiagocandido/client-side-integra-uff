@@ -54,3 +54,22 @@ a.dash-item.item{
     background-position: 50% 100%;
 }
 
+/* File details page style */
+
+.file-detail {
+    text-align: center;
+}
+
+.file-detail .icon {
+    font-size: 50px;
+    margin-top: 10px;
+}
+
+.file-detail .file-info {
+    font-weight: 300;
+    color: #656363;
+}
+
+.file-detail .actions {
+    margin-top: 35px;
+}
