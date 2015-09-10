@@ -1,14 +1,22 @@
-function Sync($interval, $rootScope, $q, Authentication, Accounts,  Courses, Events, Topics, Files){
+function Sync($interval, $rootScope, $q, Settings, Authentication, Accounts,  Courses, Events, Topics, Files){
   var clock = null;
 
   const RESOURCES = [Events, Courses, Topics, Files];
 
 
-
-var fetchAll = function(){
-    var resources = [];
+  var deleteAll = function(system){
     angular.forEach(RESOURCES, function(resource){
-      resources.push(resource.fetch());
+      resource.delete({ 'system' : system })
+    })
+  };
+
+  var fetchAll = function(){
+    var resources = [];
+    Settings.getSetting('LAST_SYNC').then(function(lastSync) {
+      params = typeof lastSync == 'undefined' ? {} : { last_sync: lastSync };
+      angular.forEach(RESOURCES, function (resource) {
+        resources.push(resource.fetch(params));
+      });
     });
     return $q.all(resources);
   };
@@ -43,6 +51,8 @@ var fetchAll = function(){
           promises.push(prepare(account));
         });
         $q.all(promises).then(function(){
+          var date = new Date();
+          Settings.setSetting('LAST_SYNC', date.toISOString(), true);
           $rootScope.$broadcast('SYNC_STOP');
           deffered.resolve();
         }, function(){
@@ -74,6 +84,9 @@ var fetchAll = function(){
         $interval.cancel(sync);
         clock = null;
       }
+    },
+    unsync: function(system){
+      deleteAll(system)
     }
   }
 }

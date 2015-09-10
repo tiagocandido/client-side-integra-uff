@@ -5,28 +5,32 @@ function Files($http, DB) {
         tableName: 'courses',
         foreignKey: 'course_id',
         columns: 'courses.name as course_name'
-       });
+      });
+    },
+    delete: function(where) {
+      return DB.delete('files', where)
     },
     get: function(fileId) {
       return DB.select('files', {'id':fileId})
-      .then(function(result){
-        return result.pop();
-      });
+          .then(function(result){
+            return result.pop();
+          });
     },
     create: function(file_attributes){
       return DB.insert('files', file_attributes, true)
     },
-    fetch: function(){
+    fetch: function(params){
       //TODO: iterate through accounts making the requests
-      return $http
-          .get('https://integra-uff.herokuapp.com/conexao_uff/files')
+      return $http({
+        url: 'https://integra-uff.herokuapp.com/conexao_uff/files',
+        method: "GET",
+        params: params
+      })
           .then(function(response){
             var files = response.data;
-            DB.delete('files', { 'system' : 'conexao_uff'}).then(function(){
-              angular.forEach(files, function(file){
-                self.create(file)
-              })
-            });
+            angular.forEach(files, function(file){
+              self.create(file)
+            })
           });
     }
   };
