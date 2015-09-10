@@ -42,28 +42,35 @@ function Sync($interval, $rootScope, $q, Settings, Authentication, Accounts,  Co
   };
 
   var sync = function(){
-    var deffered = $q.defer();
-    $rootScope.$broadcast('SYNC_START');
-    Accounts.all().then(function (accounts) {
-      var promises = [];
-      if (accounts.length) {
-        angular.forEach(accounts, function (account) {
-          promises.push(prepare(account));
-        });
-        $q.all(promises).then(function(){
+    var connectionType = $cordovaNetwork.getNetwork();
+    console.log("Connection type" + connectionType);
+
+    if (connectionType != Connection.NONE) {
+      var deffered = $q.defer();
+      $rootScope.$broadcast('SYNC_START');
+      Accounts.all().then(function (accounts) {
+        var promises = [];
+        if (accounts.length) {
+          angular.forEach(accounts, function (account) {
+            promises.push(prepare(account));
+          });
+          $q.all(promises).then(function(){
+            $rootScope.$broadcast('SYNC_STOP');
+            deffered.resolve();
+          }, function(){
+            deffered.reject();
+          })
+        }
+        else {
+          $rootScope.$broadcast('NOT_AUTHENTICATED');
           $rootScope.$broadcast('SYNC_STOP');
           deffered.resolve();
-        }, function(){
-          deffered.reject();
-        })
-      }
-      else {
-        $rootScope.$broadcast('NOT_AUTHENTICATED');
-        $rootScope.$broadcast('SYNC_STOP');
-        deffered.resolve();
-      }
-    });
-    return deffered.promise;
+        }
+      });
+      return deffered.promise;
+    } else {
+      console.log("No Connection Available");
+    };
   };
 
 
