@@ -3,6 +3,9 @@ function Topics($http, DB, Answers) {
     all: function() {
       return DB.selectAll('topics');
     },
+    delete: function(where) {
+      return DB.delete('topics', where)
+    },
     create: function(topic_attributes){
       return DB.insert('topics', topic_attributes, true)
     },
@@ -12,19 +15,20 @@ function Topics($http, DB, Answers) {
         return result.pop();
       });
     },
-    fetch: function(){
+    fetch: function(params){
       //TODO: iterate through accounts making the requests
-      return $http
-          .get('https://integra-uff.herokuapp.com/conexao_uff/topics')
+      return $http({
+        url: 'https://integra-uff.herokuapp.com/conexao_uff/topics',
+        method: "GET",
+        params: params
+      })
           .then(function(response){
             var topics = response.data;
-            DB.delete('topics', { 'system' : 'conexao_uff'}).then(function(){
               angular.forEach(topics, function(topic){
                 self.create_answers(topic.answers);
                 delete topic.answers;
                 self.create(topic)
               })
-            });
           });
     },
     create_answers: function(answers){

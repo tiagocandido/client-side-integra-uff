@@ -10,7 +10,6 @@ function SettingsCtrl($scope, Sync, Settings) {
   ];
 
   Settings.getAllSettings().then(function(settings){
-    console.log(JSON.stringify(settings));
     var _settings = {};
     angular.forEach(settings, function(setting){
       _settings[setting.name] = {type : setting.type, value : setting.value};

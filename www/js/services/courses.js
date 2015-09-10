@@ -3,28 +3,30 @@ function Courses($http, DB) {
     all: function() {
       return DB.selectAll('courses')
     },
-    remove: function(course) {
+    delete: function(where) {
+      return DB.delete('courses', where)
     },
     get: function(courseId) {
       return DB.select('courses', {'id':courseId})
-      .then(function(result){
-        return result.pop();
-      });
+          .then(function(result){
+            return result.pop();
+          });
     },
     create: function(course_attributes){
       return DB.insert('courses', course_attributes, true)
     },
-    fetch: function(){
+    fetch: function(params){
       //TODO: iterate through accounts making the requests
-      return $http
-          .get('https://integra-uff.herokuapp.com/conexao_uff/courses')
+      return $http({
+        url: 'https://integra-uff.herokuapp.com/conexao_uff/courses',
+        method: "GET",
+        params: params
+      })
           .then(function(response){
-            DB.delete('courses', { 'system' : 'conexao_uff'}).then(function(){
-              var courses = response.data;
-              angular.forEach(courses, function(course){
-                self.create(course)
-              })
-            });
+            var courses = response.data;
+            angular.forEach(courses, function(course){
+              self.create(course)
+            })
           });
     },
     fetch_events: function(courseId) {
@@ -41,17 +43,17 @@ function Courses($http, DB) {
     },
     fetch_topics: function(courseId) {
       return DB.select('topics',
-        {'course_id':courseId})
-        .then(function(result){
-          return result;
-        });
+          {'course_id':courseId})
+          .then(function(result){
+            return result;
+          });
     },
     fetch_files: function(courseId) {
       return DB.select('files',
-        {'course_id':courseId})
-        .then(function(result){
-          return result;
-        });
+          {'course_id':courseId})
+          .then(function(result){
+            return result;
+          });
     }
   };
 

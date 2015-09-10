@@ -5,10 +5,10 @@ function Events($http, DB) {
         tableName: 'courses',
         foreignKey: 'course_id',
         columns: 'courses.name as course_name'
-       });
+      });
     },
-    remove: function(_event) {
-
+    delete: function(where) {
+      return DB.delete('events', where)
     },
     get: function(eventId) {
 
@@ -16,17 +16,18 @@ function Events($http, DB) {
     create: function(event_attributes){
       return DB.insert('events', event_attributes, true)
     },
-    fetch: function(){
+    fetch: function(params){
       //TODO: iterate through accounts making the requests
-      return $http
-          .get('https://integra-uff.herokuapp.com/conexao_uff/events')
+      return $http({
+        url: 'https://integra-uff.herokuapp.com/conexao_uff/events',
+        method: "GET",
+        params: params
+      })
           .then(function(response){
             var events = response.data;
-            DB.delete('events', { 'system' : 'conexao_uff'}).then(function(){
-              angular.forEach(events, function(event){
-                self.create(event)
-              })
-            });
+            angular.forEach(events, function(event){
+              self.create(event)
+            })
           });
     }
   };

@@ -1,14 +1,22 @@
-function Sync($interval, $rootScope, $q, $cordovaNetwork, Authentication, Accounts,  Courses, Events, Topics, Files){
+function Sync($interval, $rootScope, $q, Settings, Authentication, Accounts,  Courses, Events, Topics, Files){
   var clock = null;
 
   const RESOURCES = [Events, Courses, Topics, Files];
 
 
-
-var fetchAll = function(){
-    var resources = [];
+  var deleteAll = function(system){
     angular.forEach(RESOURCES, function(resource){
-      resources.push(resource.fetch());
+      resource.delete({ 'system' : system })
+    })
+  };
+
+  var fetchAll = function(){
+    var resources = [];
+    Settings.getSetting('LAST_SYNC').then(function(lastSync) {
+      params = typeof lastSync == 'undefined' ? {} : { last_sync: lastSync };
+      angular.forEach(RESOURCES, function (resource) {
+        resources.push(resource.fetch(params));
+      });
     });
     return $q.all(resources);
   };
@@ -34,36 +42,30 @@ var fetchAll = function(){
   };
 
   var sync = function(){
-    var connectionType = $cordovaNetwork.getNetwork();
-    console.log("Connection type" + connectionType);
-
-    if (connectionType != Connection.NONE) {
-      var deffered = $q.defer();
-      $rootScope.$broadcast('SYNC_START');
-      Accounts.all().then(function (accounts) {
-        var promises = [];
-        if (accounts.length) {
-          angular.forEach(accounts, function (account) {
-            promises.push(prepare(account));
-          });
-          $q.all(promises).then(function(){
-            $rootScope.$broadcast('SYNC_STOP');
-            deffered.resolve();
-          }, function(){
-            deffered.reject();
-          })
-        }
-        else {
-          $rootScope.$broadcast('NOT_AUTHENTICATED');
+    var deffered = $q.defer();
+    $rootScope.$broadcast('SYNC_START');
+    Accounts.all().then(function (accounts) {
+      var promises = [];
+      if (accounts.length) {
+        angular.forEach(accounts, function (account) {
+          promises.push(prepare(account));
+        });
+        $q.all(promises).then(function(){
           $rootScope.$broadcast('SYNC_STOP');
           deffered.resolve();
-        }
-      });
-      return deffered.promise;
-    } else {
-      console.log("No Connection Available");
-    };
+        }, function(){
+          deffered.reject();
+        })
+      }
+      else {
+        $rootScope.$broadcast('NOT_AUTHENTICATED');
+        $rootScope.$broadcast('SYNC_STOP');
+        deffered.resolve();
+      }
+    });
+    return deffered.promise;
   };
+
 
   return {
     now: function(){
@@ -80,6 +82,9 @@ var fetchAll = function(){
         $interval.cancel(sync);
         clock = null;
       }
+    },
+    unsync: function(system){
+      deleteAll(system)
     }
   }
 }
