@@ -1,4 +1,4 @@
-function MainCtrl($scope, $ionicLoading, $state) {
+function MainCtrl($scope, $rootScope, $ionicLoading, $state) {
   $scope.$on("NOT_AUTHENTICATED", function () {
     $state.go('tab.settings').then(function(){
       $state.go('tab.accounts')

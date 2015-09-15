@@ -1,4 +1,4 @@
-function Courses($http, DB) {
+function Courses($http, DB, NotificationManager) {
   var self =  {
     all: function() {
       return DB.selectAll('courses')
@@ -25,7 +25,9 @@ function Courses($http, DB) {
           .then(function(response){
             var courses = response.data;
             angular.forEach(courses, function(course){
-              self.create(course)
+              self.create(course).then(function(){
+                if('last_sync' in params) NotificationManager.newCourse(course);
+              })
             })
           });
     },

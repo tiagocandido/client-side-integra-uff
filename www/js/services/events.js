@@ -1,4 +1,4 @@
-function Events($http, DB) {
+function Events($http, DB, NotificationManager) {
   var self = {
     all: function() {
       return DB.selectAllWithJoin('events', {
@@ -26,7 +26,9 @@ function Events($http, DB) {
           .then(function(response){
             var events = response.data;
             angular.forEach(events, function(event){
-              self.create(event)
+              self.create(event).then(function(){
+                NotificationManager.newEvent(event);
+              })
             })
           });
     }

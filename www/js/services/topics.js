@@ -1,4 +1,4 @@
-function Topics($http, DB, Answers) {
+function Topics($http, DB, Answers, NotificationManager) {
   var self = {
     all: function() {
       return DB.selectAll('topics');
@@ -27,7 +27,9 @@ function Topics($http, DB, Answers) {
               angular.forEach(topics, function(topic){
                 self.create_answers(topic.answers);
                 delete topic.answers;
-                self.create(topic)
+                self.create(topic).then(function(){
+                  if('last_sync' in params) NotificationManager.newTopic(topic);
+                })
               })
           });
     },

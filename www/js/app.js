@@ -7,7 +7,7 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('integraUff', ['ionic', 'angular-websql', 'angular.filter', 'integraUff.controllers', 'integraUff.services', 'ngCordova'])
 
-    .run(function($ionicPlatform, DB, Sync, Settings) {
+    .run(function($ionicPlatform, DB, Sync, Settings, NotificationManager) {
         $ionicPlatform.ready(function() {
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
             // for form inputs)
@@ -30,6 +30,8 @@ angular.module('integraUff', ['ionic', 'angular-websql', 'angular.filter', 'inte
                 .then(function(interval){
                     Sync.start(interval);
                 });
+
+            NotificationManager.handleNotifications();
         });
     })
 

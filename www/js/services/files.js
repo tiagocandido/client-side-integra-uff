@@ -1,4 +1,4 @@
-function Files($http, DB) {
+function Files($http, DB, NotificationManager) {
   var self = {
     all: function() {
       return DB.selectAllWithJoin('files', {
@@ -29,7 +29,9 @@ function Files($http, DB) {
           .then(function(response){
             var files = response.data;
             angular.forEach(files, function(file){
-              self.create(file)
+              self.create(file).then(function(){
+                if('last_sync' in params) NotificationManager.newFile(file);
+              })
             })
           });
     }

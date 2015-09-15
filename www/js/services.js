@@ -11,4 +11,5 @@ angular.module('integraUff.services', ['integraUff.config'])
     .factory('Sync', Sync)
     .factory('Settings', Settings)
     .factory('DB', DB)
-    .factory('FileManager', FileManager);
+    .factory('FileManager', FileManager)
+    .factory('NotificationManager', NotificationManager);
