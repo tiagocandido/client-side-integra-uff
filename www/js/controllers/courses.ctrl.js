@@ -1,5 +1,13 @@
 function CoursesCtrl($scope, Courses) {
-  Courses.all().then(function(courses){
-    $scope.courses = courses
+  $scope.init = function(){
+    Courses.all().then(function(courses){
+      $scope.courses = courses
+    })
+  };
+
+  $scope.$on("SYNC_STOP", function(){
+    $scope.init();
   });
+
+  $scope.init();
 }

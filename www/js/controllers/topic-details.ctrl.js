@@ -5,6 +5,6 @@ function TopicDetailsCtrl($scope, $stateParams, Topics) {
       $scope.answers = answers;
     });
   });
-};
+}
 
 

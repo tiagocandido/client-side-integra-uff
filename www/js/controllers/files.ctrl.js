@@ -1,5 +1,13 @@
 function FilesCtrl($scope, Files) {
-  Files.all().then(function(files){
-    $scope.files = files
+  $scope.init = function() {
+    Files.all().then(function (files) {
+      $scope.files = files
+    })
+  };
+
+  $scope.$on("SYNC_STOP", function(){
+    $scope.init();
   });
+
+  $scope.init();
 }
