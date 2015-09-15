@@ -23,6 +23,10 @@ function Settings($filter, $q, DB){
     return DB.insert('settings', { name : name, value : value, type : type }, replace)
   };
 
+  self.deleteSetting = function(name){
+    return DB.delete('settings', { name : name })
+  };
+
   self.init = function(){
     var defered = $q.defer();
     self.getAllSettings().then(function(settings){

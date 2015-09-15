@@ -1,13 +1,15 @@
-function Sync($interval, $rootScope, $q, Settings, Authentication, Accounts,  Courses, Events, Topics, Files){
+function Sync($interval, $rootScope, $cordovaNetwork, $q, Settings, Authentication, Accounts,  Courses, Events, Topics, Files){
   var clock = null;
 
   const RESOURCES = [Events, Courses, Topics, Files];
 
 
   var deleteAll = function(system){
+    var promises = [];
     angular.forEach(RESOURCES, function(resource){
-      resource.delete({ 'system' : system })
-    })
+      promises.push(resource.delete({ 'system' : system }))
+    });
+    return $q.all(promises);
   };
 
   var fetchAll = function(){
@@ -42,11 +44,10 @@ function Sync($interval, $rootScope, $q, Settings, Authentication, Accounts,  Co
   };
 
   var sync = function(){
-    var connectionType = $cordovaNetwork.getNetwork();
+    var deffered = $q.defer(),
+        connectionType = $cordovaNetwork.getNetwork();
     console.log("Connection type" + connectionType);
-
     if (connectionType != Connection.NONE) {
-      var deffered = $q.defer();
       $rootScope.$broadcast('SYNC_START');
       Accounts.all().then(function (accounts) {
         var promises = [];
@@ -55,6 +56,8 @@ function Sync($interval, $rootScope, $q, Settings, Authentication, Accounts,  Co
             promises.push(prepare(account));
           });
           $q.all(promises).then(function(){
+            var date = new Date();
+            Settings.setSetting('LAST_SYNC', date.toISOString(), true);
             $rootScope.$broadcast('SYNC_STOP');
             deffered.resolve();
           }, function(){
@@ -67,10 +70,11 @@ function Sync($interval, $rootScope, $q, Settings, Authentication, Accounts,  Co
           deffered.resolve();
         }
       });
-      return deffered.promise;
-    } else {
-      console.log("No Connection Available");
-    };
+    }
+    else {
+      deffered.resolve("No Connection Available");
+    }
+    return deffered.promise;
   };
 
 
@@ -91,7 +95,10 @@ function Sync($interval, $rootScope, $q, Settings, Authentication, Accounts,  Co
       }
     },
     unsync: function(system){
-      deleteAll(system)
+      deleteAll(system).then(function(){
+        Settings.deleteSetting('LAST_SYNC');
+        $rootScope.$broadcast('SYNC_STOP');
+      })
     }
   }
 }
