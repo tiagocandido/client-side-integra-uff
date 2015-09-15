@@ -50,7 +50,8 @@ angular.module('integraUff', ['ionic', 'angular-websql', 'angular.filter', 'inte
             .state('tab', {
                 url: "/tab",
                 abstract: true,
-                templateUrl: "templates/tabs.html"
+                templateUrl: "templates/tabs.html",
+                controller: 'MainCtrl'
             })
 
             // Each tab has its own nav history stack:

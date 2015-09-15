@@ -1,4 +1,5 @@
 angular.module('integraUff.controllers', [])
+    .controller('MainCtrl', MainCtrl)
     .controller('SettingsCtrl', SettingsCtrl)
     .controller('ChatDetailCtrl', ChatDetailCtrl)
     .controller('ChatsCtrl', ChatsCtrl)
