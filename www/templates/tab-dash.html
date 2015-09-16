@@ -1,20 +1,22 @@
 <ion-view view-title="Integra UFF">
-  <ion-content scroll="false">
-    <div class="list full-height">
-      <a class="item item-icon-right dash-item disciplinas" href="#/tab/courses">
+    <ion-content scroll="false">
+        <ion-refresher pulling-text="Puxe para atualizar" on-refresh="sync()">
+        </ion-refresher>
+        <div class="list full-height">
+            <a class="item item-icon-right dash-item disciplinas" href="#/tab/courses">
 
-        <header><i class="icon ion-university"></i><h1>Disciplinas</h1></header>
-        <i class="icon ion-chevron-right"></i>
-      </a>
-      <a class="item item-icon-right dash-item eventos " href="#/tab/events">
+                <header><i class="icon ion-university"></i><h1>Disciplinas</h1></header>
+                <i class="icon ion-chevron-right"></i>
+            </a>
+            <a class="item item-icon-right dash-item eventos " href="#/tab/events">
 
-        <header><i class="icon ion-android-calendar"></i><h1>Eventos</h1></header>
-        <i class="icon ion-chevron-right"></i>
-      </a>
-      <a class="item item-icon-right dash-item arquivos" href="#/tab/files">
-        <header><i class="icon ion-ios-folder"></i><h1>Arquivos</h1></header>
-        <i class="icon ion-chevron-right"></i>
-      </a>
-    </div>
-  </ion-content>
+                <header><i class="icon ion-android-calendar"></i><h1>Eventos</h1></header>
+                <i class="icon ion-chevron-right"></i>
+            </a>
+            <a class="item item-icon-right dash-item arquivos" href="#/tab/files">
+                <header><i class="icon ion-ios-folder"></i><h1>Arquivos</h1></header>
+                <i class="icon ion-chevron-right"></i>
+            </a>
+        </div>
+    </ion-content>
 </ion-view>

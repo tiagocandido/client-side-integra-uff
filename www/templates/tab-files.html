@@ -1,12 +1,14 @@
 <ion-view view-title="Arquivos">
-  <ion-content>
-    <ion-list>
-      <div ng-repeat="(course, course_files) in files | groupBy: 'course_name'">
-        <ion-item class="item-remove-animate item-divider" type="item-text-wrap">
-          {{ course }}
-        </ion-item>
-        <a ng-repeat="file in course_files" class="item item-icon-left item-icon-right" ng-include src="'templates/files/file.html'" href="#/tab/files/{{file.id}}" />
-      </div>
-    </ion-list>
-  </ion-content>
+    <ion-content>
+        <ion-refresher pulling-text="Puxe para atualizar" on-refresh="sync()">
+        </ion-refresher>
+        <ion-list>
+            <div ng-repeat="(course, course_files) in files | groupBy: 'course_name'">
+                <ion-item class="item-remove-animate item-divider" type="item-text-wrap">
+                    {{ course }}
+                </ion-item>
+                <a ng-repeat="file in course_files" class="item item-icon-left item-icon-right" ng-include src="'templates/files/file.html'" href="#/tab/files/{{file.id}}" />
+            </div>
+        </ion-list>
+    </ion-content>
 </ion-view>

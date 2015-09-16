@@ -1,48 +1,50 @@
 <ion-view view-title="Disciplina">
-  <ion-content class="padding has-header">
-    <h4 class="title">{{course.name}}</h4>
-    <p>{{course.info}}</p>
+    <ion-content class="padding has-header">
+        <ion-refresher pulling-text="Puxe para atualizar" on-refresh="sync()">
+        </ion-refresher>
+        <h4 class="title">{{course.name}}</h4>
+        <p>{{course.info}}</p>
 
-    <!-- Topics list -->
-    <div class="list card">
-      <div class="item item-divider">
-       Tópicos
-      </div>
-      <a href="#/tab/topics/{{topic.id}}" ng-repeat="topic in topics" class="item item-icon-right">
-        {{topic.name}}
-        <p>por: {{topic.author}} - {{topic.updated_at}}</p>
-        <i class="icon ion-chevron-right icon-accessory"></i>
-      </a>
-      <p class="item" ng-if="!topics.length">
-        Nenhum tópico desta disciplina.
-      </p>
-    </div>
+        <!-- Topics list -->
+        <div class="list card">
+            <div class="item item-divider">
+                Tópicos
+            </div>
+            <a href="#/tab/topics/{{topic.id}}" ng-repeat="topic in topics" class="item item-icon-right">
+                {{topic.name}}
+                <p>por: {{topic.author}} - {{topic.updated_at}}</p>
+                <i class="icon ion-chevron-right icon-accessory"></i>
+            </a>
+            <p class="item" ng-if="!topics.length">
+                Nenhum tópico desta disciplina.
+            </p>
+        </div>
 
-    <!-- Events list -->
-    <div class="list card">
-      <div class="item item-divider">
-       Próximos Eventos
-      </div>
-      <div ng-repeat="event in events" class="item">
-        {{event.name}}
-        <p>{{event.starts | date: 'dd/MM/yyyy - HH:mm'}} até {{event.ends | date: 'dd/MM/yyyy - HH:mm'}}</p>
-      </div>
-      <p class="item" ng-if="!events.length">
-        Nenhum evento desta disciplina.
-      </p>
-    </div>
+        <!-- Events list -->
+        <div class="list card">
+            <div class="item item-divider">
+                Próximos Eventos
+            </div>
+            <div ng-repeat="event in events" class="item">
+                {{event.name}}
+                <p>{{event.starts | date: 'dd/MM/yyyy - HH:mm'}} até {{event.ends | date: 'dd/MM/yyyy - HH:mm'}}</p>
+            </div>
+            <p class="item" ng-if="!events.length">
+                Nenhum evento desta disciplina.
+            </p>
+        </div>
 
-    <!-- Files list -->
-    <div class="list card">
-      <div class="item item-divider">
-       Arquivos
-      </div>
-      <a ng-repeat="file in files" class="item item-icon-left item-icon-right" ng-include src="'templates/files/file.html'" href="#/tab/files/{{file.id}}">
-      </a>
-      <p class="item" ng-if="!files.length">
-        Nenhum arquivo desta disciplina.
-      </p>
-    </div>
+        <!-- Files list -->
+        <div class="list card">
+            <div class="item item-divider">
+                Arquivos
+            </div>
+            <a ng-repeat="file in files" class="item item-icon-left item-icon-right" ng-include src="'templates/files/file.html'" href="#/tab/files/{{file.id}}">
+            </a>
+            <p class="item" ng-if="!files.length">
+                Nenhum arquivo desta disciplina.
+            </p>
+        </div>
 
-  </ion-content>
+    </ion-content>
 </ion-view>

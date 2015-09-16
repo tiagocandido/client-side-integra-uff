@@ -1,18 +1,20 @@
 <ion-view view-title="Eventos">
-  <ion-content>
-    <ion-list>
-      <ion-item class="item-remove-animate item-divider" type="item-text-wrap">
-        Próximos ({{ next_events.length }})
-      </ion-item>
-      <ion-item class="item-remove-animate" ng-repeat="_event in next_events" type="item-text-wrap">
-        <div ng-include src="'templates/events/event.html'"></div>
-      </ion-item>
-      <ion-item class="item-remove-animate item-divider" type="item-text-wrap">
-        Encerrados ({{ previous_events.length }})
-      </ion-item>
-      <ion-item class="item-remove-animate" ng-repeat="_event in previous_events" type="item-text-wrap">
-        <div ng-include src="'templates/events/event.html'"></div>
-      </ion-item>
-    </ion-list>
-  </ion-content>
+    <ion-content>
+        <ion-refresher pulling-text="Puxe para atualizar" on-refresh="sync()">
+        </ion-refresher>
+        <ion-list>
+            <ion-item class="item-remove-animate item-divider" type="item-text-wrap">
+                Próximos ({{ next_events.length }})
+            </ion-item>
+            <ion-item class="item-remove-animate" ng-repeat="_event in next_events" type="item-text-wrap">
+                <div ng-include src="'templates/events/event.html'"></div>
+            </ion-item>
+            <ion-item class="item-remove-animate item-divider" type="item-text-wrap">
+                Encerrados ({{ previous_events.length }})
+            </ion-item>
+            <ion-item class="item-remove-animate" ng-repeat="_event in previous_events" type="item-text-wrap">
+                <div ng-include src="'templates/events/event.html'"></div>
+            </ion-item>
+        </ion-list>
+    </ion-content>
 </ion-view>

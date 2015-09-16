@@ -1,4 +1,4 @@
-function MainCtrl($scope, $rootScope, $ionicLoading, $state) {
+function MainCtrl($scope, $ionicLoading, $state, Sync) {
   $scope.$on("NOT_AUTHENTICATED", function () {
     $state.go('tab.settings').then(function(){
       $state.go('tab.accounts')
@@ -16,4 +16,10 @@ function MainCtrl($scope, $rootScope, $ionicLoading, $state) {
     console.log("SYNC_STOP");
     $ionicLoading.hide();
   });
+
+  $scope.sync = function(){
+    Sync.now(false).then(function(){
+      $scope.$broadcast('scroll.refreshComplete');
+    });
+  }
 }

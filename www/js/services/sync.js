@@ -43,12 +43,13 @@ function Sync($interval, $rootScope, $cordovaNetwork, $q, Settings, Authenticati
     })
   };
 
-  var sync = function(){
+  var sync = function(showLoading){
     var deffered = $q.defer(),
         connectionType = $cordovaNetwork.getNetwork();
+    showLoading = typeof showLoading !== 'undefined' ? showLoading : false;
     console.log("Connection type" + connectionType);
     if (connectionType != Connection.NONE) {
-      $rootScope.$broadcast('SYNC_START');
+      if(showLoading) $rootScope.$broadcast('SYNC_START');
       Accounts.all().then(function (accounts) {
         var promises = [];
         if (accounts.length) {
@@ -58,7 +59,7 @@ function Sync($interval, $rootScope, $cordovaNetwork, $q, Settings, Authenticati
           $q.all(promises).then(function(){
             var date = new Date();
             Settings.setSetting('LAST_SYNC', date.toISOString(), true);
-            $rootScope.$broadcast('SYNC_STOP');
+            if(typeof hideLoading == 'undefined') $rootScope.$broadcast('SYNC_STOP');
             deffered.resolve();
           }, function(){
             deffered.reject();
@@ -66,7 +67,7 @@ function Sync($interval, $rootScope, $cordovaNetwork, $q, Settings, Authenticati
         }
         else {
           $rootScope.$broadcast('NOT_AUTHENTICATED');
-          $rootScope.$broadcast('SYNC_STOP');
+          if(showLoading) $rootScope.$broadcast('SYNC_STOP');
           deffered.resolve();
         }
       });
@@ -79,8 +80,8 @@ function Sync($interval, $rootScope, $cordovaNetwork, $q, Settings, Authenticati
 
 
   return {
-    now: function(){
-      return sync();
+    now: function(showLoading){
+      return sync(showLoading);
     },
     start: function(interval){
       sync();
