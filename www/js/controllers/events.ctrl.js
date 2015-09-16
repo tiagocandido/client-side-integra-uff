@@ -1,4 +1,4 @@
-function EventsCtrl($scope, Events) {
+function EventsCtrl($scope, $cordovaCalendar, $ionicPopup, Events) {
   $scope.init = function() {
     Events.all().then(function(events){
       var time_now = new Date().toISOString();
@@ -22,5 +22,25 @@ function EventsCtrl($scope, Events) {
     $scope.init();
   });
 
+  $scope.addToCalendar = function(_event) {
+    $cordovaCalendar.createEvent({
+      title: _event.name,
+      notes: _event.info,
+      startDate: _event.starts,
+      endDate: _event.ends
+    }).then(function (result) {
+      console.log("Deu bom");
+      $ionicPopup.alert({
+        title: 'Evento adicionado',
+        template: 'O evento ' + _event.name + ' foi adicionado ao calendário com sucesso.'
+      });
+    }, function (err) {
+      $ionicPopup.alert({
+        title: 'Falha',
+        template: 'Erro: ' + err
+      });
+    });
+  };
+  
   $scope.init();
 }
