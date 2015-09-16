@@ -80,3 +80,19 @@ a.dash-item.item{
     color: #DC5656;
     text-decoration: none;
 }
+
+/* Events tab style */
+
+.event-details {
+    display: inline-block;
+    width: 85%;
+}
+
+.add-to-calendar-button {
+    border: none;
+    background: none;
+}
+
+.add-to-calendar-button > i {
+    font-size: 35px;
+}
